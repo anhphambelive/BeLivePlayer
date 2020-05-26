@@ -1,0 +1,73 @@
+.manage-custom-page {
+	/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+	.left-menu-sidebar {
+		color: #2d2d2d;
+		width: 250px;
+		position: fixed;
+		top: 47px;
+		left: 0;
+		min-height: calc(100vh - 110px);
+		z-index: 999;
+		background-image: linear-gradient(189deg, #fcf3ef, #f8e3db 5%);
+		transition: all 0.3s;
+
+		&.active {
+			margin-left: -250px;
+		}
+
+		.sidebar-header {
+			text-align: center;
+			padding: 40px 10px;
+
+			.profile-menu-img {
+				width: 115px;
+				height: 115px;
+				border-radius: 50%;
+			}
+		}
+
+		.sidebar-menu {
+			padding: 5px 10px;
+
+			.list-menu-sidebar {
+				list-style: none;
+				padding: 0;
+
+				.menu-sidebar-item {
+					font-size: 18px;
+					font-weight: 900;
+					color: #2d2d2d;
+					padding: 10px 20px;
+					cursor: pointer;
+					a {
+						color: #2d2d2d;
+					}
+
+					&.active {
+						opacity: 0.8;
+						border-radius: 6px;
+						background-image: linear-gradient(261deg, #c12d85, #ea3d54);
+						color: #ffffff;
+						a {
+							color: #ffffff;
+						}
+					}
+				}
+			}
+		}
+
+		a[data-toggle="collapse"] {
+			position: relative;
+		}
+
+		.dropdown-toggle::after {
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 20px;
+			transform: translateY(-50%);
+		}
+	}
+}

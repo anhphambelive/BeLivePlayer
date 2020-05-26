@@ -1,0 +1,30 @@
+.video-js-player-wrapper {
+	width: 100%;
+	height: 100%;
+	.video-center {
+		width: 100%;
+		height: 100%;
+	}
+	video {
+		//width: auto;
+	}
+	&.video-js-sdk {
+		.video-center {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.video-js-player-wrapper {
+		.video-center {
+			//height: 300px;
+		}
+		&.video-js-sdk {
+			.video-center {
+				//height: 300px;
+			}
+		}
+	}
+}

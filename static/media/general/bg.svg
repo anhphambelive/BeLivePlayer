@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="913" viewBox="0 0 1440 913">
+    <defs>
+        <linearGradient id="prefix__a" x1="-9.839%" x2="91.423%" y1="49.543%" y2="48.121%">
+            <stop offset="0%" stop-color="#FB02C6"/>
+            <stop offset="100%" stop-color="#7C6EE3"/>
+        </linearGradient>
+        <linearGradient id="prefix__b" x1="-9.839%" x2="91.423%" y1="49.875%" y2="49.486%">
+            <stop offset="0%" stop-color="#FB02C6"/>
+            <stop offset="100%" stop-color="#7C6EE3"/>
+        </linearGradient>
+        <linearGradient id="prefix__c" x1="-9.839%" x2="91.423%" y1="47.083%" y2="38.007%">
+            <stop offset="0%" stop-color="#FB02C6"/>
+            <stop offset="100%" stop-color="#7C6EE3"/>
+        </linearGradient>
+        <linearGradient id="prefix__d" x1="-9.839%" x2="91.423%" y1="47.244%" y2="38.669%">
+            <stop offset="0%" stop-color="#FB02C6"/>
+            <stop offset="100%" stop-color="#7C6EE3"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" opacity=".5">
+        <path fill="url(#prefix__a)" d="M1440 435v478H0V808.942c34.843-15.699 70.046-28.237 103.14-34.584 151.071-28.982 231.48 46.917 349.431 16.598 117.952-30.318 193.346-107.63 307.209-150.82 191.649-72.712 287.46-27.39 453.934-70.143C1279.93 552.984 1363.423 496.664 1440 435z" opacity=".34"/>
+        <path fill="url(#prefix__b)" d="M1440 663v250H0v-30.754c42.737-11.102 79.869-18.005 96.969-20.657 187.225-29.055 283.988 31.578 430.174 1.184 146.186-30.393 242.486-92.442 383.58-135.74C1135.183 658.158 1253.546 694.939 1440 663z" opacity=".34"/>
+        <path fill="url(#prefix__c)" d="M725 0c-5.66 13.646-11.836 27.24-18.655 40.758-38.648 76.633-100.866 151.903-179.81 193.56-83.265 43.92-179.525 48.494-252.627 110.761-72.125 61.445-105.524 155.347-180.761 211.164C71.584 572.253 38.417 590.551 0 608V0h725z" opacity=".34"/>
+        <path fill="url(#prefix__d)" d="M541 0c-39.183 58.966-87.673 111.504-144.21 148.689-102.508 67.35-224.504 81.082-312.691 173.144C50.393 357.038 24.451 398.518 0 441V0h541z" opacity=".34"/>
+    </g>
+</svg>
