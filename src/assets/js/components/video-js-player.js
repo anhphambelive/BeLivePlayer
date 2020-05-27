@@ -112,32 +112,13 @@ export default {
 		initialPlayer: async function (number) {
 			console.log("Retry number", number);
 			let _this = this;
-			let vid = document.getElementById(_this.playerWrapper);
-			// let btnUnmute = document.getElementById("unmute-stream-init-btn");
 			try {
 				this.player = videojs(
 					this.$refs.videoPlayer,
 					this.options,
 					function onPlayerReady() {
 						console.log("onPlayerReady", this);
-						// setTimeout(() => {
-						// 	try {
-						// 		// btnUnmute.click();
-						// 		vid.play();
-						// 	} catch (e) {
-						// 		console.log(e)
-						// 	}
-						// }, 2000);
-						// Update status:
-						if (_this.streamInfo) {
-							_this.$root.$emit(`on-status-stream`, {
-								channel: _this.streamInfo.streamName,
-								status: true
-							});
-						}
-						
 						_this.$root.$emit(`played-video`);
-						
 						this.on('error', function(e) {
 							_this.destroyPlayer();
 							console.log("reset-video-js");
@@ -158,6 +139,7 @@ export default {
 	beforeDestroy() {
 		if (this.player) {
 			this.player.dispose();
+			this.player = null;
 		}
 	}
 };
