@@ -1,5 +1,5 @@
 <template>
-	<div :id="playerWrapper" class="wowza-player-wrapper"></div>
+	<div :id="playerWrapper" class="video-player-wrapper wowza-player-wrapper"></div>
 </template>
 
 <script>

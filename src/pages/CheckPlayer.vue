@@ -75,6 +75,11 @@
 								:url-source="streamUrl"
 								:is-play-stream="true"
 						></plyr-player>
+						<wowza-player
+								player-wrapper="my-watch-video"
+								v-else-if="usePlayer === 'wowza'"
+								:options="wowzaPlayerOptions"
+						></wowza-player>
 						<template v-slot:overlay>
 							<div class="text-center">
 								<b-icon icon="three-dots" font-scale="3" animation="cylon"></b-icon>
