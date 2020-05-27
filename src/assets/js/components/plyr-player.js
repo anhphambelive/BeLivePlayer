@@ -91,12 +91,15 @@ export default {
 			this.playVideoRecorded();
 		}
 		
+		this.plyrPlayer.on('play', () => {
+			this.$root.$emit('played-video-player');
+		});
+		
 	},
 	methods: {
 		playStreamVideo: function () {
 			let _this = this;
 			this.plyrPlayer = new Plyr(_this.videoElement, _this.options);
-			let btnUnmute = document.getElementById("unmute-stream-init-btn");
 			this.plyrPlayer.on('ready', event => {
 				if (_this.streamInfo) {
 					_this.$root.$emit(`on-status-stream`, {
@@ -104,31 +107,56 @@ export default {
 						status: true
 					});
 				}
+				_this.renderPlayer();
 				
 				setTimeout(() => {
 					_this.plyrPlayer.play();
-					btnUnmute.click();
 				}, 1000);
 			});
+		},
+		renderPlayer: function () {
+			let isBrowserSupported = true;
+			if (!this.usePlayer) {
+				if (Hls.isSupported()) {
+					// For more Hls.js options, see https://github.com/dailymotion/hls.js
+					const hls = new Hls();
+					hls.loadSource(this.urlSource);
+					hls.attachMedia(this.videoElement);
+				} else if (shaka.Player.isBrowserSupported()) {
+					// Install built-in polyfills
+					shaka.polyfill.installAll();
+					const shakaInstance = new shaka.Player(this.videoElement);
+					shakaInstance.load(this.urlSource);
+				} else {
+					isBrowserSupported = true;
+				}
+			}
+			else if (this.usePlayer === "hls") {
+				if (Hls.isSupported()) {
+					// For more Hls.js options, see https://github.com/dailymotion/hls.js
+					const hls = new Hls();
+					hls.loadSource(this.urlSource);
+					hls.attachMedia(this.videoElement);
+				} else {
+					isBrowserSupported = true;
+				}
+			}
+			else if (this.usePlayer === "shaka") {
+				if (shaka.Player.isBrowserSupported()) {
+					// Install built-in polyfills
+					shaka.polyfill.installAll();
+					const shakaInstance = new shaka.Player(this.videoElement);
+					shakaInstance.load(this.urlSource);
+				}
+				else {
+					isBrowserSupported = true;
+				}
+			}
 			
-			
-			if (Hls.isSupported()) {
-				// For more Hls.js options, see https://github.com/dailymotion/hls.js
-				const hls = new Hls();
-				hls.loadSource(this.urlSource);
-				hls.attachMedia(this.videoElement);
-			} else if (shaka.Player.isBrowserSupported()) {
-				// Install built-in polyfills
-				shaka.polyfill.installAll();
-				const shakaInstance = new shaka.Player(this.videoElement);
-				shakaInstance.load(this.urlSource);
-			} else {
+			if (!isBrowserSupported) {
 				this.videoElement.src = this.urlSource;
 				console.warn('Browser is not supported!');
 			}
-		},
-		renderPlayer: function () {
-			if (!this.usePlayer) {}
 		},
 		playVideoRecorded: function () {
 			let _this = this;
@@ -140,6 +168,11 @@ export default {
 					_this.plyrPlayer.play();
 				}, 1000);
 			});
+		}
+	},
+	beforeDestroy() {
+		if (this.plyrPlayer) {
+			this.plyrPlayer.destroy();
 		}
 	}
 };
