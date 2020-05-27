@@ -63,6 +63,10 @@ export default {
 		isPlayStream: {
 			type: Boolean,
 			default: false
+		},
+		usePlayer: {
+			type: String,
+			default: null
 		}
 	},
 	data() {
@@ -107,6 +111,7 @@ export default {
 				}, 1000);
 			});
 			
+			
 			if (Hls.isSupported()) {
 				// For more Hls.js options, see https://github.com/dailymotion/hls.js
 				const hls = new Hls();
@@ -122,7 +127,9 @@ export default {
 				console.warn('Browser is not supported!');
 			}
 		},
-		
+		renderPlayer: function () {
+			if (!this.usePlayer) {}
+		},
 		playVideoRecorded: function () {
 			let _this = this;
 			this.plyrPlayer = new Plyr(_this.videoElement, Object.assign(_this.options, {

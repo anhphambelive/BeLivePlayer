@@ -1,14 +1,11 @@
 import VideoJsPlayer from "../../../components/VideoJsPlayer";
-import WebRtcPlayer from "../../../components/WebRtcPlayer";
 import PlyrPlayer from "../../../components/PlyrPlayer";
-import HelperMixins from "../../../mixins/HelperMixins";
 
 export default {
 	name: "CheckPlayer",
-	mixins: [HelperMixins],
+	mixins: [],
 	components: {
 		VideoJsPlayer,
-		WebRtcPlayer,
 		PlyrPlayer,
 	},
 	data() {
