@@ -119,6 +119,12 @@ export default {
 					function onPlayerReady() {
 						console.log("onPlayerReady", this);
 						_this.$root.$emit(`played-video`);
+						
+						this.src({
+							src: _this.videoJsPlayerOptions.urlSource,
+							type: _this.typeVideo
+						});
+						
 						this.on('error', function(e) {
 							_this.destroyPlayer();
 							console.log("reset-video-js");
