@@ -87,23 +87,38 @@ export default {
 			_this.player.muted(false);
 		});
 		
-		// this.$root.$on('host-end-stream', function(){
-		// 	if (_this.player) {
-		// 		_this.player.dispose();
-		// 	}
-		// });
-		
-		this.player.on('timeupdate', function() {
-			_this.$root.$emit('update-time-video-player',this.currentTime());
-		});
-		
-		this.player.on('play', function() {
-			_this.$root.$emit('played-video-player');
-		});
-		
-		this.player.on('ended', function() {
-			_this.$root.$emit('host-end-stream');
-			this.dispose();
+		this.player.on('ready', () => {
+			this.player.on('error', (e) => {
+				console.log("error player", e);
+				_this.$root.$emit(`reset-video-js`);
+			});
+			
+			this.player.reloadSourceOnError({
+				// getSource allows you to override the source object used when an error occurs
+				getSource: function(reload) {
+					console.log('Reloading because of an error');
+					// call reload() with a fresh source object
+					// you can do this step asynchronously if you want (but the error dialog will
+					// show up while you're waiting)
+					reload({
+						src: _this.videoJsPlayerOptions.urlSource,
+						type: _this.typeVideo
+					});
+				},
+			});
+
+			this.player.on('timeupdate', function() {
+				_this.$root.$emit('update-time-video-player',this.currentTime());
+			});
+			
+			this.player.on('play', function() {
+				_this.$root.$emit('played-video-player');
+			});
+			
+			this.player.on('ended', function() {
+				_this.$root.$emit('host-end-stream');
+				this.dispose();
+			});
 		});
 	},
 	methods: {
@@ -114,21 +129,6 @@ export default {
 				this.player = videojs(
 					this.$refs.videoPlayer,
 					this.options,
-					function onPlayerReady() {
-						console.log("onPlayerReady", this);
-						_this.$root.$emit(`played-video`);
-						
-						this.src({
-							src: _this.videoJsPlayerOptions.urlSource,
-							type: _this.typeVideo
-						});
-						
-						this.on('error', function(e) {
-							_this.destroyPlayer();
-							console.log("reset-video-js");
-							_this.$root.$emit(`reset-video-js`);
-						});
-					},
 				);
 			} catch (e) {
 				console.log("Error", e);
