@@ -34,6 +34,11 @@ export default {
 				// // { value: "wowza", text: "Player 4" },
 			],
 			testingUrls: [
+				"http://34.84.215.47/BeLive_cam0.m3u8",
+				"http://34.84.215.47/BeLive_cam1.m3u8",
+				"http://34.84.215.47/BeLive_cam2.m3u8",
+				"http://34.84.215.47/BeLive_cam3.m3u8 ",
+				"https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
 				"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
 				"http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8"
 			],
