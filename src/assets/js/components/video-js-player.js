@@ -1,5 +1,3 @@
-import videojs from "video.js";
-
 export default {
 	name: "VideoJsPlayer",
 	props: {
@@ -29,19 +27,19 @@ export default {
 				return {
 					autoplay: true,
 					preload: "auto",
-					controlBar: {
-						playToggle: false,
-						captionsButton: false,
-						chaptersButton: false,
-						subtitlesButton: false,
-						remainingTimeDisplay: false,
-						progressControl: {
-							seekBar: true
-						},
-						fullscreenToggle: false,
-						playbackRateMenuButton: false,
-						pictureInPictureToggle: false,
-					},
+					// controlBar: {
+					// 	playToggle: false,
+					// 	captionsButton: false,
+					// 	chaptersButton: false,
+					// 	subtitlesButton: false,
+					// 	remainingTimeDisplay: false,
+					// 	progressControl: {
+					// 		seekBar: true
+					// 	},
+					// 	fullscreenToggle: true,
+					// 	playbackRateMenuButton: false,
+					// 	pictureInPictureToggle: false,
+					// },
 					controls: true,
 					liveui: true
 					// muted: true
