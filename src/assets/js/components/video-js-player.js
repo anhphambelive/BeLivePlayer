@@ -50,7 +50,8 @@ export default {
 	data() {
 		return {
 			player: null,
-			retryNumber: 0
+			retryNumber: 0,
+			qualityLevels: null
 		};
 	},
 	watch: {
@@ -124,12 +125,19 @@ export default {
 	methods: {
 		initialPlayer: async function (number) {
 			console.log("Retry number", number);
-			let _this = this;
 			try {
 				this.player = videojs(
 					this.$refs.videoPlayer,
 					this.options,
 				);
+				this.qualityLevels = this.player.qualityLevels();
+				console.log("qualityLevels", this.qualityLevels);
+				
+				// Listen to change events for when the player selects a new quality level
+				this.qualityLevels.on('change', () => {
+					console.log('Quality Level changed!');
+					console.log('New level:', this.qualityLevels[this.qualityLevels.selectedIndex]);
+				});
 			} catch (e) {
 				console.log("Error", e);
 			}
@@ -138,6 +146,19 @@ export default {
 		destroyPlayer: function () {
 			// this.player.dispose();
 			// this.player = null;
+		},
+		changeQuality(quality, index) {
+			this.qualityLevels.selectedIndex_ = index;
+			this.qualityLevels[index].enabled = true;
+			for (let i = 0; i < this.qualityLevels.length; i++) {
+				let qualityLevel = this.qualityLevels[i];
+				if (i !== index) {
+					qualityLevel.enabled = false;
+				} else {
+					qualityLevel.enabled = true;
+				}
+			}
+			console.log("changed", this.qualityLevels);
 		}
 	},
 	beforeDestroy() {
