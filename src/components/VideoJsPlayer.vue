@@ -20,7 +20,7 @@
 		</video>
 		<div class="quality-levels" v-if="qualityLevels">
 			<div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
-				<b-button variant="danger" class="mt-1" @click="changeQuality(qualityLevel, index)">
+				<b-button :variant="qualityLevels.selectedIndex === index ? 'danger' : 'secondary'" class="mt-1" @click="changeQuality(qualityLevel, index)">
 					{{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
 				</b-button>
 			</div>
