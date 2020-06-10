@@ -138,6 +138,10 @@ export default {
 					console.log('Quality Level changed!');
 					console.log('New level:', this.qualityLevels[this.qualityLevels.selectedIndex]);
 				});
+				
+				this.player.hlsQualitySelector({
+					displayCurrentQuality: true,
+				});
 			} catch (e) {
 				console.log("Error", e);
 			}
@@ -159,6 +163,47 @@ export default {
 				}
 			}
 			console.log("changed", this.qualityLevels);
+		},
+		registerButton() {
+			/* ADD PREVIOUS */
+			let Button = videojs.getComponent('Button');
+
+			// Extend default
+			let PrevButton = videojs.extend(Button, {
+				//constructor: function(player, options) {
+				constructor: function() {
+					Button.apply(this, arguments);
+					this.addClass('vjs-icon-cog');
+					this.controlText("Quality");
+					this.toggleClass("open", true);
+					// this.width("50");
+				},
+				
+				// constructor: function() {
+				//   Button.apply(this, arguments);
+				//   this.addClass('vjs-play-control vjs-control vjs-button vjs-paused');
+				// },
+				
+				createEl: function() {
+				  return Button.prototype.createEl('button', {
+				    className: 'vjs-quality-button',
+				    innerHTML: ' Quality'
+				  });
+				},
+				
+				handleClick: function() {
+					console.log('click');
+				},
+				
+				toggleClass: function() {
+					console.log('toggleClass');
+					return Button.prototype.toggleClass('open-source');
+				}
+			});
+			
+			// Register the new component
+			videojs.registerComponent('PrevButton', PrevButton);
+			this.player.getChild('controlBar').addChild('PrevButton', {}, 0);
 		}
 	},
 	beforeDestroy() {
