@@ -1,30 +1,34 @@
 .video-js-player-wrapper {
-	width: 100%;
-	height: 100%;
-	.video-center {
-		width: 100%;
-		height: 100%;
-	}
-	video {
-		//width: auto;
-	}
-	&.video-js-sdk {
-		.video-center {
-			width: 100%;
-			height: 100%;
-		}
-	}
-}
-
-@media (max-width: 768px) {
-	.video-js-player-wrapper {
-		.video-center {
-			//height: 300px;
-		}
-		&.video-js-sdk {
-			.video-center {
-				//height: 300px;
-			}
-		}
-	}
+    width: 100%;
+    height: 500px;
+    .hover-overlay {
+        background-color: rgba(0,0,0,.56);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 14px;
+        cursor: pointer;
+        z-index: 20;
+        .hover-play-img {
+            //background: url("../static/media/icons/play-icon.png") no-repeat 50%;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .video-center {
+        width: 100%;
+        height: 100%;
+    }
+    &.video-js-sdk {
+        .video-center {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__state-video-actions {
+        position: absolute;
+        top: 1rem;
+    }
 }

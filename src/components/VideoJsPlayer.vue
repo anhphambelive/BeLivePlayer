@@ -1,39 +1,54 @@
 <template>
-	<div class="video-player-wrapper video-js-player-wrapper" v-if="videoJsPlayerOptions.urlSource">
-		<video
-				:id="playerWrapper"
-				:poster="imgCover"
-				autoplay
-				class="video-js video-center"
-				oncontextmenu="return false;"
-				preload="auto"
-				ref="videoPlayer"
-				playsinline
-				webkit-playsinline
-		>
-			<source :src="videoJsPlayerOptions.urlSource" :type="typeVideo"/>
-			<p class="vjs-no-js">
-				To view this video please enable JavaScript, and consider upgrading to a
-				web browser that
-				<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-			</p>
-		</video>
-		<div class="quality-levels" v-if="qualityLevels">
-			<div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
-				<b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="mt-1" @click="changeQuality(qualityLevel, index)">
-					{{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
-				</b-button>
-			</div>
-		</div>
-	</div>
+    <div class="video-js-player-wrapper" v-if="urlSources.length && urlPlaying">
+        <video
+            :id="playerWrapper"
+            :poster="imgCover"
+            class="video-js video-center vjs-big-play-centered"
+            oncontextmenu="return false;"
+            preload="auto"
+            ref="videoPlayer"
+            playsinline
+            controls
+            autoplay
+            webkit-playsinline
+        >
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a
+                    href="https://videojs.com/html5-video-support/"
+                    target="_blank"
+                >supports HTML5 video</a>
+            </p>
+        </video>
+        <div class="video-js-player-wrapper__state-video-actions">
+            <b-button
+                class="ml-3 unmute-stream-init-btn"
+                variant="light"
+                @click="unMuteVideo()"
+                v-b-tooltip.hover
+                title="Un-mute Stream"
+                v-if="isMuted && isShowMuteBtn"
+            >
+                <b-img src="static/media/icons/no-sound.svg" alt="mute-unmute"></b-img>
+                {{ (viewerUsingMobileOS === mobileOS.UN_KNOWN) ? 'Click' : 'Tap' }} to unmute
+            </b-button>
+        </div>
+        <div class="quality-levels text-break" v-if="qualityLevels">
+            <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
+                <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="mt-1" @click="changeQuality(qualityLevel, index)">
+                    {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+                </b-button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-	import VideoJsPlayer from "../assets/js/components/video-js-player";
+    import VideoJsPlayer from "../assets/js/components/video-js-player";
 
-	export default VideoJsPlayer;
+    export default VideoJsPlayer;
 </script>
 
-<style lang="scss" scoped>
-	@import "../assets/scss/components/video-js-player";
+<style lang="scss">
+    @import "../assets/scss/components/video-js-player";
 </style>
