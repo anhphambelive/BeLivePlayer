@@ -14,26 +14,25 @@ export default {
 	data() {
 		return {
 			showLoading: false,
-			videoJsPlayerOptions: {
-				// coverImage: null,
-				// userImage: null,
-				// urlSource: null,
-			},
 			reRenderComponent: 0,
 			streamUrl: "",
+            urlSources: [],
 			usePlayer: "videojs",
 			playerOptions: [
 				// { value: "videojs", text: "VideoJS Player" },
 				// { value: "hls", text: "HLS Player" },
 				// { value: "shaka", text: "Shaka Player" },
 				// { value: "wowza", text: "Wowza Player" },
-				
+
 				{ value: "videojs", text: "Player 1" },
 				{ value: "hls", text: "Player 2" },
-				// // { value: "shaka", text: "Player 3" },
+                { value: "videojs-aws", text: "Player 3" },
+                // // { value: "shaka", text: "Player 3" },
 				// // { value: "wowza", text: "Player 4" },
 			],
 			testingUrls: [
+				"https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8",
+				"https://56124c4c47e0.us-west-2.playback.live-video.net/api/video/v1/us-west-2.238231345362.channel.V08fLwnN7GgN.m3u8",
 				"http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
 				"https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
 				"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -75,9 +74,14 @@ export default {
 			this.streamUrl = url;
 			this.reRenderComponent++;
 			if (this.usePlayer === "videojs") {
-				this.videoJsPlayerOptions = Object.assign({}, {
-					urlSource: url
-				});
+				this.urlSources = [
+                    url
+                ];
+			}
+			else if (this.usePlayer === "videojs-aws") {
+				this.urlSources = [
+                    url
+                ];
 			}
 			else if (this.usePlayer === "wowza") {
 				this.wowzaPlayerOptions = Object.assign({}, {
@@ -95,7 +99,7 @@ export default {
 				});
 			}
 			else {
-				this.videoJsPlayerOptions = Object.assign({}, {});
+				this.urlSources = [];
 			}
 		}
 	},

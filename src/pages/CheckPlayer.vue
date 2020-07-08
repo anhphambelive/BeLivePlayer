@@ -65,8 +65,17 @@
 					<b-overlay :show="showLoading" rounded="sm" opacity="0.8">
 						<video-js-player
 								player-wrapper="my-watch-video"
-								:video-js-player-options="videoJsPlayerOptions"
-								v-if="usePlayer === 'videojs' && videoJsPlayerOptions.urlSource"
+                                v-if="usePlayer === 'videojs' && urlSources.length"
+                                :url-sources="urlSources"
+                                :is-use-aws-config="false"
+                                :force-auto-play-with-sound="true"
+						></video-js-player>
+                        <video-js-player
+								player-wrapper="my-watch-video"
+                                v-else-if="usePlayer === 'videojs-aws' && urlSources.length"
+                                :url-sources="urlSources"
+                                :is-use-aws-config="true"
+                                :force-auto-play-with-sound="true"
 						></video-js-player>
 						<plyr-player
 								player-wrapper="my-watch-video"
