@@ -302,6 +302,12 @@ export default {
                         });
                     }
                 }
+
+                this.player.mediainfo = this.player.mediainfo || {};
+                this.player.mediainfo.projection = '360';
+
+                // AUTO is the default and looks at mediainfo
+                this.player.vr({projection: 'AUTO', debug: true, forceCardboard: false});
             } catch (e) {
                 console.log("Error", e);
             }
