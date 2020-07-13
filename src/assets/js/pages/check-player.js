@@ -27,6 +27,7 @@ export default {
 				{ value: "videojs", text: "Player 1" },
 				{ value: "hls", text: "Player 2" },
                 { value: "videojs-aws", text: "Player 3" },
+                { value: "videojs-360", text: "Player 4" },
                 // // { value: "shaka", text: "Player 3" },
 				// // { value: "wowza", text: "Player 4" },
 			],
@@ -74,12 +75,7 @@ export default {
 			// this.showLoading = true;
 			this.streamUrl = url;
 			this.reRenderComponent++;
-			if (this.usePlayer === "videojs") {
-				this.urlSources = [
-                    url
-                ];
-			}
-			else if (this.usePlayer === "videojs-aws") {
+			if (this.usePlayer === "videojs" || this.usePlayer === "videojs-360" || this.usePlayer === "videojs-aws") {
 				this.urlSources = [
                     url
                 ];

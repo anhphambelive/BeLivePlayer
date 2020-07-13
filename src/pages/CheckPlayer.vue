@@ -77,6 +77,13 @@
                                 :is-use-aws-config="true"
                                 :force-auto-play-with-sound="true"
 						></video-js-player>
+                        <video-js-player
+								player-wrapper="my-watch-video"
+                                v-else-if="usePlayer === 'videojs-360' && urlSources.length"
+                                :url-sources="urlSources"
+                                :is-use360-config="true"
+                                :force-auto-play-with-sound="true"
+						></video-js-player>
 						<plyr-player
 								player-wrapper="my-watch-video"
 								v-else-if="usePlayer === 'hls' || usePlayer === 'shaka'"
