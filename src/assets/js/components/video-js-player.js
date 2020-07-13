@@ -42,6 +42,10 @@ export default {
         isUseAwsConfig: {
             type: Boolean,
             default: false
+        },
+        isUse360Config: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -303,11 +307,13 @@ export default {
                     }
                 }
 
-                this.player.mediainfo = this.player.mediainfo || {};
-                this.player.mediainfo.projection = '360';
+                if (this.isUse360Config) {
+                    this.player.mediainfo = this.player.mediainfo || {};
+                    this.player.mediainfo.projection = '360';
 
-                // AUTO is the default and looks at mediainfo
-                this.player.vr({projection: 'AUTO', debug: true, forceCardboard: false});
+                    // AUTO is the default and looks at mediainfo
+                    this.player.vr({projection: 'AUTO', debug: true, forceCardboard: false});
+                }
             } catch (e) {
                 console.log("Error", e);
             }
