@@ -3,7 +3,7 @@ import PlyrPlayer from "../../../components/PlyrPlayer";
 import WowzaPlayer from "../../../components/WowzaPlayer";
 import {WOWZA_PLAYER_CONFIGS} from "../../../configs/Settings";
 
-const BASE_URL = 'http://localhost:8081';
+const BASE_URL = 'http://beliveplayer.belive.sg';
 
 export default {
 	name: "CheckPlayer",
