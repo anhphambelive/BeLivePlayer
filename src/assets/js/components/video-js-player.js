@@ -308,10 +308,14 @@ export default {
                 }
 
                 if (this.isUse360Config) {
-                    this.player.mediainfo = this.player.mediainfo || {};
-                    this.player.mediainfo.projection = '360';
+                    if (!this.player.mediainfo) {
+                        this.player.mediainfo = {};
+                    }
 
-                    // AUTO is the default and looks at mediainfo
+                    if (!this.player.mediainfo.projection) {
+                        this.player.mediainfo.projection = '360';
+                    }
+
                     this.player.vr({projection: 'AUTO', debug: true, forceCardboard: false});
                 }
             } catch (e) {
@@ -457,8 +461,11 @@ function defaultOptions() {
                 overrideNative: !videojs.browser.IS_SAFARI
             },
             nativeAudioTracks: false,
-            nativeVideoTracks: false
+            nativeVideoTracks: false,
+            // withCredentials: true
         },
+        crossorigin: "anonymous",
+        crossOrigin: "anonymous",
         loop: true,
         controls: true,
         muted: true
