@@ -34,8 +34,9 @@ export default {
 				// // { value: "wowza", text: "Player 4" },
 			],
 			testingUrls: [
-                `${BASE_URL}/static/media/video/video-2.webm`,
+                `${BASE_URL}/static/media/hls/hls.m3u8`,
                 `${BASE_URL}/static/media/video/video-1.mp4`,
+                `${BASE_URL}/static/media/hls-2/video2.m3u8`,
 				"https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8",
 				"https://56124c4c47e0.us-west-2.playback.live-video.net/api/video/v1/us-west-2.238231345362.channel.V08fLwnN7GgN.m3u8",
 				"http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
