@@ -1,6 +1,10 @@
 <template>
 	<div class="container-fluid belive-player-page">
-		<div class="container home mt-3 mb-3">
+        <b-row class="text-center mt-3">
+            <b-button class="switch-layout" variant="success" @click="isMultipleLayout = !isMultipleLayout">Change Layout To
+                {{ (!isMultipleLayout) ? "Multiple Streams" : "Single Player" }}</b-button>
+        </b-row>
+		<div class="container home mt-3 mb-3" v-if="!isMultipleLayout">
 			<b-row class="title-row">
 				<b-col cols="12">
 					<h1 class="text-center mt-3 mb-1">
@@ -62,13 +66,13 @@
 
 			<b-row class="player-wrapper-layout">
 				<b-col cols="12" :key="reRenderComponent">
-					<b-overlay :show="showLoading" rounded="sm" opacity="0.8">
 						<video-js-player
 								player-wrapper="my-watch-video"
                                 v-if="usePlayer === 'videojs' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use-aws-config="false"
                                 :force-auto-play-with-sound="true"
+                                :isShowQualities="true"
 						></video-js-player>
                         <video-js-player
 								player-wrapper="my-watch-video"
@@ -76,6 +80,7 @@
                                 :url-sources="urlSources"
                                 :is-use-aws-config="true"
                                 :force-auto-play-with-sound="true"
+                                :isShowQualities="true"
 						></video-js-player>
                         <video-js-player
 								player-wrapper="my-watch-video"
@@ -83,6 +88,7 @@
                                 :url-sources="urlSources"
                                 :is-use360-config="true"
                                 :force-auto-play-with-sound="true"
+                                :isShowQualities="true"
 						></video-js-player>
 						<plyr-player
 								player-wrapper="my-watch-video"
@@ -102,10 +108,81 @@
 								<p id="cancel-label">Loading video, please wait...</p>
 							</div>
 						</template>
-					</b-overlay>
 				</b-col>
 			</b-row>
 		</div>
+
+        <div class="container home mt-3 mb-3" v-else>
+            <b-row class="title-row">
+                <b-col cols="12">
+                    <h1 class="text-center mt-3 mb-1">
+                        MULTIPLE STREAMS
+                    </h1>
+                </b-col>
+            </b-row>
+
+            <b-row class="player-wrapper-layout">
+                <div class="main-wrapper">
+                    <video-js-player
+                        player-wrapper="main-stream"
+                        :url-sources="urlMultiple.main"
+                        :force-auto-play-with-sound="true"
+                    >
+                        <template slot="info-layout">
+                            <div class="title-layout">
+                                2D
+                            </div>
+                        </template>
+                    </video-js-player>
+                </div>
+                <div class="sub-wrapper">
+                    <div class="item-mini">
+                        <video-js-player
+                            player-wrapper="mini-stream-1"
+                            :url-sources="urlMultiple.sub1"
+                            :force-auto-play-with-sound="true"
+                            :options="subVideoConfigs"
+                        >
+                            <template slot="info-layout">
+                                <div class="title-layout">
+                                    2D
+                                </div>
+                            </template>
+                        </video-js-player>
+                    </div>
+                    <div class="item-mini">
+                        <video-js-player
+                            player-wrapper="mini-stream-2"
+                            :url-sources="urlMultiple.sub2"
+                            :force-auto-play-with-sound="true"
+                            :is-use360-config="true"
+                            :options="subVideoConfigs"
+                        >
+                            <template slot="info-layout">
+                                <div class="title-layout">
+                                    360
+                                </div>
+                            </template>
+                        </video-js-player>
+                    </div>
+                    <div class="item-mini">
+                        <video-js-player
+                            player-wrapper="mini-stream-3"
+                            :url-sources="urlMultiple.sub3"
+                            :force-auto-play-with-sound="true"
+                            :is-use360-config="true"
+                            :options="subVideoConfigs"
+                        >
+                            <template slot="info-layout">
+                                <div class="title-layout">
+                                    360
+                                </div>
+                            </template>
+                        </video-js-player>
+                    </div>
+                </div>
+            </b-row>
+        </div>
 	</div>
 </template>
 

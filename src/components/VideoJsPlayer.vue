@@ -1,5 +1,10 @@
 <template>
     <div class="video-js-player-wrapper" v-if="urlSources.length && urlPlaying">
+        <slot name="info-layout">
+            <div class="title-layout">
+                360
+            </div>
+        </slot>
         <video
             :id="playerWrapper"
             :poster="imgCover"
@@ -33,7 +38,7 @@
                 {{ (viewerUsingMobileOS === mobileOS.UN_KNOWN) ? 'Click' : 'Tap' }} to unmute
             </b-button>
         </div>
-        <div class="quality-levels text-break" v-if="qualityLevels">
+        <div class="quality-levels text-break" v-if="isShowQualities && qualityLevels">
             <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
                 <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="mt-1" @click="changeQuality(qualityLevel, index)">
                     {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
