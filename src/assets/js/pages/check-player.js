@@ -3,7 +3,7 @@ import PlyrPlayer from "../../../components/PlyrPlayer";
 import WowzaPlayer from "../../../components/WowzaPlayer";
 import {WOWZA_PLAYER_CONFIGS} from "../../../configs/Settings";
 
-const BASE_URL = 'http://beliveplayer.belive.sg';
+const BASE_URL = 'http://localhost:8081';
 
 export default {
     name: "CheckPlayer",
@@ -77,7 +77,7 @@ export default {
                 },
                 {
                     sources: [
-                        `${BASE_URL}/static/media/hls/hls.m3u8`
+                        `${BASE_URL}/static/media/hls/hls.m3u8`,
                     ],
                     is360Video: true
                 },

@@ -54,6 +54,10 @@ export default {
         isAlwaysPlayLowest: {
             type: Boolean,
             default: false
+        },
+        isAlwaysPlayHighest: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -387,6 +391,16 @@ export default {
                             }, 0);
                             console.log("Min", index);
                             this.changeQuality(index);
+                        });
+                    }
+                    else if (this.isAlwaysPlayHighest) {
+                        this.$nextTick(() => {
+                            let _self = this;
+                            let indexMax = this.qualityLevels.levels_.reduce((min, level, i) => {
+                                return level.width >= _self.qualityLevels.levels_[min].width ? i : min;
+                            }, 0);
+                            console.log("Max", indexMax);
+                            this.changeQuality(indexMax);
                         });
                     }
                 });
