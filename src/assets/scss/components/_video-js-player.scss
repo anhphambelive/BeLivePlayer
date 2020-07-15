@@ -32,7 +32,7 @@
         position: absolute;
         top: 1rem;
     }
-    .title-layout {
+    .info-layout {
         position: absolute;
         top: 0;
         right: 0;
@@ -42,5 +42,15 @@
         z-index: 2;
         padding: 5px 10px;
         font-weight: 800;
+    }
+
+    .actions-layout {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: white;
+        background: black;
+        padding: 3px 7px;
+        cursor: pointer;
     }
 }
