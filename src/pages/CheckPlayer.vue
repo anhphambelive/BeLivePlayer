@@ -143,6 +143,7 @@
                             :url-sources="urlMultiple[1].sources"
                             :options="subVideoConfigs"
                             :is-use360-config="urlMultiple[1].is360Video"
+                            :is-always-play-lowest="true"
                         >
                             <template slot="info-layout">
                                 <div class="info-layout">
@@ -171,6 +172,7 @@
                             :url-sources="urlMultiple[2].sources"
                             :is-use360-config="urlMultiple[2].is360Video"
                             :options="subVideoConfigs"
+                            :is-always-play-lowest="true"
                         >
                             <template slot="info-layout">
                                 <div class="info-layout">
@@ -197,6 +199,7 @@
                             :url-sources="urlMultiple[3].sources"
                             :is-use360-config="urlMultiple[3].is360Video"
                             :options="subVideoConfigs"
+                            :is-always-play-lowest="true"
                         >
                             <template slot="info-layout">
                                 <div class="info-layout">

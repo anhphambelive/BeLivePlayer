@@ -50,6 +50,10 @@ export default {
         isShowQualities: {
             type: Boolean,
             default: false
+        },
+        isAlwaysPlayLowest: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -326,7 +330,7 @@ export default {
                 console.log("Error", e);
             }
         },
-        changeQuality(quality, index) {
+        changeQuality(index) {
             this.qualityLevels.selectedIndex_ = index;
             this.qualityLevels[index].enabled = true;
             for (let i = 0; i < this.qualityLevels.length; i++) {
@@ -373,6 +377,17 @@ export default {
                     if (this.isPaused) {
                         this.isShowMuteBtn = false;
                         this.checkShowResumeByPureJS();
+                    }
+
+                    if (this.isAlwaysPlayLowest) {
+                        this.$nextTick(() => {
+                            let _self = this;
+                            let index = this.qualityLevels.levels_.reduce((min, level, i) => {
+                                return level.width <= _self.qualityLevels.levels_[min].width ? i : min;
+                            }, 0);
+                            console.log("Min", index);
+                            this.changeQuality(index);
+                        });
                     }
                 });
 
