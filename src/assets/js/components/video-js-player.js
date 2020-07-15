@@ -46,6 +46,10 @@ export default {
         isUse360Config: {
             type: Boolean,
             default: false
+        },
+        isShowQualities: {
+            type: Boolean,
+            default: false
         }
     },
     data() {

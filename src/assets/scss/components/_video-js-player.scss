@@ -1,6 +1,7 @@
 .video-js-player-wrapper {
     width: 100%;
-    height: 500px;
+    height: 100%;
+    position: relative;
     .hover-overlay {
         background-color: rgba(0,0,0,.56);
         position: absolute;
@@ -30,5 +31,16 @@
     &__state-video-actions {
         position: absolute;
         top: 1rem;
+    }
+    .title-layout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: black;
+        border: 2px solid white;
+        color: white;
+        z-index: 2;
+        padding: 5px 10px;
+        font-weight: 800;
     }
 }
