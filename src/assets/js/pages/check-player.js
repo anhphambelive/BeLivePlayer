@@ -71,7 +71,7 @@ export default {
                 },
                 {
                     sources: [
-                        "http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
+                        "https://ak-texel01.akamaized.net/hls/live/2000341/test/master.m3u8?hdnea=st=1594806483~exp=1595411283~acl=/hls/live/*~hmac=0971be7041af0cc44f4696c3f5beff759243f6ee7444844711fcf5e125c4ed8d",
                     ],
                     is360Video: false
                 },
