@@ -25,26 +25,30 @@
                 >supports HTML5 video</a>
             </p>
         </video>
-        <div class="video-js-player-wrapper__state-video-actions">
-            <b-button
-                class="ml-3 unmute-stream-init-btn"
-                variant="light"
-                @click="unMuteVideo()"
-                v-b-tooltip.hover
-                title="Un-mute Stream"
-                v-if="isMuted && isShowMuteBtn"
-            >
-                <b-img src="static/media/icons/no-sound.svg" alt="mute-unmute"></b-img>
-                {{ (viewerUsingMobileOS === mobileOS.UN_KNOWN) ? 'Click' : 'Tap' }} to unmute
-            </b-button>
-        </div>
-        <div class="quality-levels text-break" v-if="isShowQualities && qualityLevels">
-            <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
-                <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="mt-1" @click="changeQuality(qualityLevel, index)">
-                    {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+        <slot name="overlay-layout">
+            <div class="video-js-player-wrapper__state-video-actions">
+                <b-button
+                    class="ml-3 unmute-stream-init-btn"
+                    variant="light"
+                    @click="unMuteVideo()"
+                    v-b-tooltip.hover
+                    title="Un-mute Stream"
+                    v-if="isMuted && isShowMuteBtn"
+                >
+                    <b-img src="static/media/icons/no-sound.svg" alt="mute-unmute"></b-img>
+                    {{ (viewerUsingMobileOS === mobileOS.UN_KNOWN) ? 'Click' : 'Tap' }} to unmute
                 </b-button>
             </div>
-        </div>
+            <div class="quality-levels text-break" v-if="isShowQualities && qualityLevels">
+                <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
+                    <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="mt-1" @click="changeQuality(qualityLevel, index)">
+                        {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+                    </b-button>
+                </div>
+            </div>
+        </slot>
+        <slot name="actions-layout">
+        </slot>
     </div>
 </template>
 

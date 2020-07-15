@@ -446,7 +446,7 @@ export default {
                     this.reloadUrlSource();
                 }, this.timeWaitingForSwitchUrl * 1000);
             }
-        }
+        },
     },
     async beforeDestroy() {
         if (this.player) {
@@ -467,6 +467,9 @@ function defaultOptions() {
             nativeAudioTracks: false,
             nativeVideoTracks: false,
             // withCredentials: true
+        },
+        controlBar: {
+            pictureInPictureToggle: false
         },
         crossorigin: "anonymous",
         crossOrigin: "anonymous",

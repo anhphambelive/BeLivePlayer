@@ -122,60 +122,97 @@
             </b-row>
 
             <b-row class="player-wrapper-layout">
-                <div class="main-wrapper">
+                <div class="main-wrapper" :key="videoKey0">
                     <video-js-player
                         player-wrapper="main-stream"
-                        :url-sources="urlMultiple.main"
+                        :url-sources="urlMultiple[0].sources"
+                        :is-use360-config="urlMultiple[0].is360Video"
                         :force-auto-play-with-sound="true"
                     >
                         <template slot="info-layout">
-                            <div class="title-layout">
-                                2D
+                            <div class="info-layout">
+                                {{ (urlMultiple[0].is360Video) ? "360" : "2D" }}
                             </div>
                         </template>
                     </video-js-player>
                 </div>
                 <div class="sub-wrapper">
-                    <div class="item-mini">
+                    <div class="item-mini" :key="videoKey1">
                         <video-js-player
                             player-wrapper="mini-stream-1"
-                            :url-sources="urlMultiple.sub1"
-                            :force-auto-play-with-sound="true"
+                            :url-sources="urlMultiple[1].sources"
                             :options="subVideoConfigs"
+                            :is-use360-config="urlMultiple[1].is360Video"
                         >
                             <template slot="info-layout">
-                                <div class="title-layout">
-                                    2D
+                                <div class="info-layout">
+                                    {{ (urlMultiple[1].is360Video) ? "360" : "2D" }}
+                                </div>
+                            </template>
+
+                            <template slot="overlay-layout">
+                                <div v-show="false"></div>
+                            </template>
+
+                            <template slot="actions-layout">
+                                <div class="actions-layout">
+                                    <b-icon-arrows-fullscreen
+                                        @click="toggleSwitchMainStream(1); currentMaxKey++; videoKey1 = currentMaxKey"
+                                        v-b-tooltip.hover
+                                        title="Switch to main stream">
+                                    </b-icon-arrows-fullscreen>
                                 </div>
                             </template>
                         </video-js-player>
                     </div>
-                    <div class="item-mini">
+                    <div class="item-mini" :key="videoKey2">
                         <video-js-player
                             player-wrapper="mini-stream-2"
-                            :url-sources="urlMultiple.sub2"
-                            :force-auto-play-with-sound="true"
-                            :is-use360-config="true"
+                            :url-sources="urlMultiple[2].sources"
+                            :is-use360-config="urlMultiple[2].is360Video"
                             :options="subVideoConfigs"
                         >
                             <template slot="info-layout">
-                                <div class="title-layout">
-                                    360
+                                <div class="info-layout">
+                                    {{ (urlMultiple[2].is360Video) ? "360" : "2D" }}
+                                </div>
+                            </template>
+                            <template slot="overlay-layout">
+                                <div v-show="false"></div>
+                            </template>
+                            <template slot="actions-layout">
+                                <div class="actions-layout">
+                                    <b-icon-arrows-fullscreen
+                                        @click="toggleSwitchMainStream(2); currentMaxKey++; videoKey2 = currentMaxKey"
+                                        v-b-tooltip.hover
+                                        title="Switch to main stream">
+                                    </b-icon-arrows-fullscreen>
                                 </div>
                             </template>
                         </video-js-player>
                     </div>
-                    <div class="item-mini">
+                    <div class="item-mini" :key="videoKey3">
                         <video-js-player
                             player-wrapper="mini-stream-3"
-                            :url-sources="urlMultiple.sub3"
-                            :force-auto-play-with-sound="true"
-                            :is-use360-config="true"
+                            :url-sources="urlMultiple[3].sources"
+                            :is-use360-config="urlMultiple[3].is360Video"
                             :options="subVideoConfigs"
                         >
                             <template slot="info-layout">
-                                <div class="title-layout">
-                                    360
+                                <div class="info-layout">
+                                    {{ (urlMultiple[3].is360Video) ? "360" : "2D" }}
+                                </div>
+                            </template>
+                            <template slot="overlay-layout">
+                                <div v-show="false"></div>
+                            </template>
+                            <template slot="actions-layout">
+                                <div class="actions-layout">
+                                    <b-icon-arrows-fullscreen
+                                        @click="toggleSwitchMainStream(3); currentMaxKey++; videoKey3 = currentMaxKey"
+                                        v-b-tooltip.hover
+                                        title="Switch to main stream">
+                                    </b-icon-arrows-fullscreen>
                                 </div>
                             </template>
                         </video-js-player>
