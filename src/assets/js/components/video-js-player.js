@@ -42,6 +42,10 @@ export default {
         isUseAwsConfig: {
             type: Boolean,
             default: false
+        },
+        isUse360Config: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -302,6 +306,18 @@ export default {
                         });
                     }
                 }
+
+                if (this.isUse360Config) {
+                    if (!this.player.mediainfo) {
+                        this.player.mediainfo = {};
+                    }
+
+                    if (!this.player.mediainfo.projection) {
+                        this.player.mediainfo.projection = '360';
+                    }
+
+                    this.player.vr({projection: 'AUTO', debug: true, forceCardboard: false});
+                }
             } catch (e) {
                 console.log("Error", e);
             }
@@ -445,8 +461,11 @@ function defaultOptions() {
                 overrideNative: !videojs.browser.IS_SAFARI
             },
             nativeAudioTracks: false,
-            nativeVideoTracks: false
+            nativeVideoTracks: false,
+            // withCredentials: true
         },
+        crossorigin: "anonymous",
+        crossOrigin: "anonymous",
         loop: true,
         controls: true,
         muted: true
