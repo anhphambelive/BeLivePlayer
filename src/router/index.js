@@ -1,24 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import CheckPlayer from "../pages/CheckPlayer";
+import MultipleStreams from "../pages/MultipleStreams";
+import NotFoundView from "../pages/404";
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    const routes = [
+          {
+              path: "/multiple-streams",
+              name: "MultipleStreams",
+              component: MultipleStreams
+          },
+          {
+              path: "/",
+              name: "CheckPlayer",
+              component: CheckPlayer
+          },
+          { path: '*', name: 'NotFound', component: NotFoundView },
+    ]
 
 const router = new VueRouter({
   mode: 'history',

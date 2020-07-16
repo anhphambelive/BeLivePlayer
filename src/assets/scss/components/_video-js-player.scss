@@ -1,0 +1,56 @@
+.video-js-player-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .hover-overlay {
+        background-color: rgba(0,0,0,.56);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 14px;
+        cursor: pointer;
+        z-index: 20;
+        .hover-play-img {
+            //background: url("../static/media/icons/play-icon.png") no-repeat 50%;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .video-center {
+        width: 100%;
+        height: 100%;
+    }
+    &.video-js-sdk {
+        .video-center {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__state-video-actions {
+        position: absolute;
+        top: 1rem;
+    }
+    .info-layout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: black;
+        border: 2px solid white;
+        color: white;
+        z-index: 2;
+        padding: 5px 10px;
+        font-weight: 800;
+    }
+
+    .actions-layout {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: white;
+        background: black;
+        padding: 3px 7px;
+        cursor: pointer;
+    }
+}

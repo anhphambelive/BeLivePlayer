@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <a href="https://tech.belive.sg/" target="_blank" a>
+          <img alt="Vue logo" src="./assets/logo.png" class="logo-page">
+      </a>
     </div>
     <router-view/>
   </div>
@@ -28,5 +29,9 @@
       color: #42b983;
     }
   }
+
+    .logo-page {
+        width: 400px;
+    }
 }
 </style>
