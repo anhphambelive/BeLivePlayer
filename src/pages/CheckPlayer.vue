@@ -1,6 +1,10 @@
 <template>
 	<div class="container-fluid belive-player-page">
-		<div class="container home mt-3 mb-3">
+        <b-row class="text-center mt-3">
+            <b-button class="switch-layout" variant="success" @click="isMultipleLayout = !isMultipleLayout">Change Layout To
+                {{ (!isMultipleLayout) ? "Multiple Streams" : "Single Player" }}</b-button>
+        </b-row>
+		<div class="container home mt-3 mb-3" v-if="!isMultipleLayout">
 			<b-row class="title-row">
 				<b-col cols="12">
 					<h1 class="text-center mt-3 mb-1">
@@ -62,13 +66,13 @@
 
 			<b-row class="player-wrapper-layout">
 				<b-col cols="12" :key="reRenderComponent">
-					<b-overlay :show="showLoading" rounded="sm" opacity="0.8">
 						<video-js-player
 								player-wrapper="my-watch-video"
                                 v-if="usePlayer === 'videojs' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use-aws-config="false"
                                 :force-auto-play-with-sound="true"
+                                :isShowQualities="true"
 						></video-js-player>
                         <video-js-player
 								player-wrapper="my-watch-video"
@@ -76,6 +80,7 @@
                                 :url-sources="urlSources"
                                 :is-use-aws-config="true"
                                 :force-auto-play-with-sound="true"
+                                :isShowQualities="true"
 						></video-js-player>
                         <video-js-player
 								player-wrapper="my-watch-video"
@@ -83,6 +88,7 @@
                                 :url-sources="urlSources"
                                 :is-use360-config="true"
                                 :force-auto-play-with-sound="true"
+                                :isShowQualities="true"
 						></video-js-player>
 						<plyr-player
 								player-wrapper="my-watch-video"
@@ -102,10 +108,121 @@
 								<p id="cancel-label">Loading video, please wait...</p>
 							</div>
 						</template>
-					</b-overlay>
 				</b-col>
 			</b-row>
 		</div>
+
+        <div class="container home mt-3 mb-3" v-else>
+            <b-row class="title-row">
+                <b-col cols="12">
+                    <h1 class="text-center mt-3 mb-1">
+                        MULTIPLE STREAMS
+                    </h1>
+                </b-col>
+            </b-row>
+
+            <b-row class="player-wrapper-layout">
+                <div class="main-wrapper" :key="videoKey0">
+                    <video-js-player
+                        player-wrapper="main-stream"
+                        :url-sources="urlMultiple[0].sources"
+                        :is-use360-config="urlMultiple[0].is360Video"
+                        :force-auto-play-with-sound="true"
+                    >
+                        <template slot="info-layout">
+                            <div class="info-layout">
+                                {{ (urlMultiple[0].is360Video) ? "360" : "2D" }}
+                            </div>
+                        </template>
+                    </video-js-player>
+                </div>
+                <div class="sub-wrapper">
+                    <div class="item-mini" :key="videoKey1">
+                        <video-js-player
+                            player-wrapper="mini-stream-1"
+                            :url-sources="urlMultiple[1].sources"
+                            :options="subVideoConfigs"
+                            :is-use360-config="urlMultiple[1].is360Video"
+                            :is-always-play-lowest="true"
+                        >
+                            <template slot="info-layout">
+                                <div class="info-layout">
+                                    {{ (urlMultiple[1].is360Video) ? "360" : "2D" }}
+                                </div>
+                            </template>
+
+                            <template slot="overlay-layout">
+                                <div v-show="false"></div>
+                            </template>
+
+                            <template slot="actions-layout">
+                                <div class="actions-layout">
+                                    <b-icon-arrows-fullscreen
+                                        @click="toggleSwitchMainStream(1); currentMaxKey++; videoKey1 = currentMaxKey"
+                                        v-b-tooltip.hover
+                                        title="Switch to main stream">
+                                    </b-icon-arrows-fullscreen>
+                                </div>
+                            </template>
+                        </video-js-player>
+                    </div>
+                    <div class="item-mini" :key="videoKey2">
+                        <video-js-player
+                            player-wrapper="mini-stream-2"
+                            :url-sources="urlMultiple[2].sources"
+                            :is-use360-config="urlMultiple[2].is360Video"
+                            :options="subVideoConfigs"
+                            :is-always-play-lowest="true"
+                        >
+                            <template slot="info-layout">
+                                <div class="info-layout">
+                                    {{ (urlMultiple[2].is360Video) ? "360" : "2D" }}
+                                </div>
+                            </template>
+                            <template slot="overlay-layout">
+                                <div v-show="false"></div>
+                            </template>
+                            <template slot="actions-layout">
+                                <div class="actions-layout">
+                                    <b-icon-arrows-fullscreen
+                                        @click="toggleSwitchMainStream(2); currentMaxKey++; videoKey2 = currentMaxKey"
+                                        v-b-tooltip.hover
+                                        title="Switch to main stream">
+                                    </b-icon-arrows-fullscreen>
+                                </div>
+                            </template>
+                        </video-js-player>
+                    </div>
+                    <div class="item-mini" :key="videoKey3">
+                        <video-js-player
+                            player-wrapper="mini-stream-3"
+                            :url-sources="urlMultiple[3].sources"
+                            :is-use360-config="urlMultiple[3].is360Video"
+                            :options="subVideoConfigs"
+                            :is-always-play-lowest="true"
+                        >
+                            <template slot="info-layout">
+                                <div class="info-layout">
+                                    {{ (urlMultiple[3].is360Video) ? "360" : "2D" }}
+                                </div>
+                            </template>
+                            <template slot="overlay-layout">
+                                <div v-show="false"></div>
+                            </template>
+                            <template slot="actions-layout">
+                                <div class="actions-layout">
+                                    <b-icon-arrows-fullscreen
+                                        @click="toggleSwitchMainStream(3); currentMaxKey++; videoKey3 = currentMaxKey"
+                                        v-b-tooltip.hover
+                                        title="Switch to main stream">
+                                    </b-icon-arrows-fullscreen>
+                                </div>
+                            </template>
+                        </video-js-player>
+                    </div>
+                </div>
+            </b-row>
+        </div>
 	</div>
 </template>
 
