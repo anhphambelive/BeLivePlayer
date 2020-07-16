@@ -1,4 +1,4 @@
-import VideoJsPlayer from "@/components/VideoJsPlayer";
+import {VideoJsPlayer} from 'bi-live-libs'
 import PlyrPlayer from "@/components/PlyrPlayer";
 import WowzaPlayer from "@/components/WowzaPlayer";
 import {WOWZA_PLAYER_CONFIGS} from "@/configs/Settings";
@@ -41,6 +41,7 @@ export default {
                 "http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
                 "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                "https://ak-texel01.akamaized.net/hls/live/2000341/test/master.m3u8?hdnea=st=1594806483~exp=1595411283~acl=/hls/live/*~hmac=0971be7041af0cc44f4696c3f5beff759243f6ee7444844711fcf5e125c4ed8d",
                 // "http://34.84.215.47/BeLive_cam0.m3u8",
                 // "http://34.84.215.47/BeLive_cam1.m3u8",
                 // "http://34.84.215.47/BeLive_cam2.m3u8",
@@ -107,10 +108,7 @@ export default {
     created() {
     },
     mounted() {
-        // Handle event
-        this.$root.$on('played-video-player', () => {
-            this.showLoading = false;
-        });
+
     },
     methods: {
         startPlayVideo: function (url) {

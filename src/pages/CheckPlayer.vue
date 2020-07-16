@@ -65,40 +65,76 @@
 			</b-row>
 
 			<b-row class="player-wrapper-layout">
-				<b-col cols="12" :key="reRenderComponent">
-						<video-js-player
-								player-wrapper="my-watch-video"
+				<b-col cols="12" :key="reRenderComponent" class="content-wrapper">
+						<VideoJsPlayer
+								video-id="my-watch-video"
                                 v-if="usePlayer === 'videojs' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use-aws-config="false"
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
-						></video-js-player>
-                        <video-js-player
-								player-wrapper="my-watch-video"
+						>
+                            <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
+                                <div class="qualities-layout text-left">
+                                    <div class="quality-levels text-break" v-if="qualityLevels">
+                                        <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
+                                            <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="text-break mt-1" @click="changeQuality(index)">
+                                                {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+                                            </b-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </VideoJsPlayer>
+                        <VideoJsPlayer
+								video-id="my-watch-video"
                                 v-else-if="usePlayer === 'videojs-aws' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use-aws-config="true"
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
-						></video-js-player>
-                        <video-js-player
-								player-wrapper="my-watch-video"
+						>
+                            <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
+                                <div class="qualities-layout text-left">
+                                    <div class="quality-levels text-break" v-if="qualityLevels">
+                                        <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
+                                            <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="text-break mt-1" @click="changeQuality(index)">
+                                                {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+                                            </b-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </VideoJsPlayer>
+                        <VideoJsPlayer
+								video-id="my-watch-video"
                                 v-else-if="usePlayer === 'videojs-360' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use360-config="true"
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
-						></video-js-player>
+						>
+                            <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
+                                <div class="qualities-layout text-left">
+                                    <div class="quality-levels text-break" v-if="qualityLevels">
+                                        <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
+                                            <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="text-break mt-1" @click="changeQuality(index)">
+                                                {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+                                            </b-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </VideoJsPlayer>
 						<plyr-player
-								player-wrapper="my-watch-video"
+								video-id="my-watch-video"
 								v-else-if="usePlayer === 'hls' || usePlayer === 'shaka'"
 								:use-player="usePlayer"
 								:url-source="streamUrl"
 								:is-play-stream="true"
 						></plyr-player>
 						<wowza-player
-								player-wrapper="my-watch-video"
+								video-id="my-watch-video"
 								v-else-if="usePlayer === 'wowza'"
 								:options="wowzaPlayerOptions"
 						></wowza-player>
@@ -123,29 +159,29 @@
 
             <b-row class="player-wrapper-layout">
                 <div class="main-wrapper" :key="videoKey0">
-                    <video-js-player
-                        player-wrapper="main-stream"
+                    <VideoJsPlayer
+                        video-id="main-stream"
                         :url-sources="urlMultiple[0].sources"
                         :is-use360-config="urlMultiple[0].is360Video"
                         :force-auto-play-with-sound="true"
                     >
-                        <template slot="info-layout">
+                        <template slot="pre-layout">
                             <div class="info-layout">
                                 {{ (urlMultiple[0].is360Video) ? "360" : "2D" }}
                             </div>
                         </template>
-                    </video-js-player>
+                    </VideoJsPlayer>
                 </div>
                 <div class="sub-wrapper">
                     <div class="item-mini" :key="videoKey1">
-                        <video-js-player
-                            player-wrapper="mini-stream-1"
+                        <VideoJsPlayer
+                            video-id="mini-stream-1"
                             :url-sources="urlMultiple[1].sources"
                             :options="subVideoConfigs"
                             :is-use360-config="urlMultiple[1].is360Video"
                             :is-always-play-lowest="true"
                         >
-                            <template slot="info-layout">
+                            <template slot="pre-layout">
                                 <div class="info-layout">
                                     {{ (urlMultiple[1].is360Video) ? "360" : "2D" }}
                                 </div>
@@ -155,7 +191,7 @@
                                 <div v-show="false"></div>
                             </template>
 
-                            <template slot="actions-layout">
+                            <template slot="additional-layout">
                                 <div class="actions-layout">
                                     <b-icon-arrows-fullscreen
                                         @click="toggleSwitchMainStream(1); currentMaxKey++; videoKey1 = currentMaxKey"
@@ -164,17 +200,17 @@
                                     </b-icon-arrows-fullscreen>
                                 </div>
                             </template>
-                        </video-js-player>
+                        </VideoJsPlayer>
                     </div>
                     <div class="item-mini" :key="videoKey2">
-                        <video-js-player
-                            player-wrapper="mini-stream-2"
+                        <VideoJsPlayer
+                            video-id="mini-stream-2"
                             :url-sources="urlMultiple[2].sources"
                             :is-use360-config="urlMultiple[2].is360Video"
                             :options="subVideoConfigs"
                             :is-always-play-lowest="true"
                         >
-                            <template slot="info-layout">
+                            <template slot="pre-layout">
                                 <div class="info-layout">
                                     {{ (urlMultiple[2].is360Video) ? "360" : "2D" }}
                                 </div>
@@ -182,7 +218,7 @@
                             <template slot="overlay-layout">
                                 <div v-show="false"></div>
                             </template>
-                            <template slot="actions-layout">
+                            <template slot="additional-layout">
                                 <div class="actions-layout">
                                     <b-icon-arrows-fullscreen
                                         @click="toggleSwitchMainStream(2); currentMaxKey++; videoKey2 = currentMaxKey"
@@ -191,17 +227,17 @@
                                     </b-icon-arrows-fullscreen>
                                 </div>
                             </template>
-                        </video-js-player>
+                        </VideoJsPlayer>
                     </div>
                     <div class="item-mini" :key="videoKey3">
-                        <video-js-player
-                            player-wrapper="mini-stream-3"
+                        <VideoJsPlayer
+                            video-id="mini-stream-3"
                             :url-sources="urlMultiple[3].sources"
                             :is-use360-config="urlMultiple[3].is360Video"
                             :options="subVideoConfigs"
                             :is-always-play-lowest="true"
                         >
-                            <template slot="info-layout">
+                            <template slot="pre-layout">
                                 <div class="info-layout">
                                     {{ (urlMultiple[3].is360Video) ? "360" : "2D" }}
                                 </div>
@@ -209,7 +245,7 @@
                             <template slot="overlay-layout">
                                 <div v-show="false"></div>
                             </template>
-                            <template slot="actions-layout">
+                            <template slot="additional-layout">
                                 <div class="actions-layout">
                                     <b-icon-arrows-fullscreen
                                         @click="toggleSwitchMainStream(3); currentMaxKey++; videoKey3 = currentMaxKey"
@@ -218,7 +254,7 @@
                                     </b-icon-arrows-fullscreen>
                                 </div>
                             </template>
-                        </video-js-player>
+                        </VideoJsPlayer>
                     </div>
                 </div>
             </b-row>
