@@ -46,6 +46,7 @@
         </slot>
         <slot name="actions-layout">
         </slot>
+        <b-button id="button-el">Permission</b-button>
     </div>
 </template>
 

@@ -121,6 +121,9 @@ export default {
             return this.getMobileOperatingSystem();
         }
     },
+    created() {
+
+    },
     async mounted() {
         if (this.isUseAwsConfig) {
             await this.parseUrlPlaying();
@@ -133,6 +136,23 @@ export default {
 
             // Handle event
             this.handleVideoEvents();
+        }
+
+        try {
+            var buttonEl = document.getElementById('button-el');
+            buttonEl.addEventListener('click', function () {
+                alert(1);
+                DeviceMotionEvent.requestPermission().then(response => {
+                    alert('We are get the permission!, response is ' + response);
+                    if (response == 'granted') {
+                        window.addEventListener('devicemotion', (e) => {
+                            // do something with e
+                        })
+                    }
+                }).catch(alert)
+            });
+        } catch (ex) {
+            alert('eval code err: ' + ex);
         }
     },
     methods: {
