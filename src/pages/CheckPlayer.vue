@@ -115,6 +115,9 @@
                                 :isShowQualities="true"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
+                                <div class="more-actions" v-show="usePlayer === 'videojs-360'">
+                                    <b-button :id="`grant-motion-access-${reRenderComponent}`" variant="danger">Grant The Motion & Orientation Access</b-button>
+                                </div>
                                 <div class="qualities-layout text-left">
                                     <div class="quality-levels text-break" v-if="qualityLevels">
                                         <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">

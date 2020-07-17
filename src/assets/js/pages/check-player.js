@@ -34,15 +34,16 @@ export default {
             ],
             testingUrls: [
                 `${process.env.VUE_APP_BASE_URL}/static/media/hls/hls.m3u8`,
-                `${process.env.VUE_APP_BASE_URL}/static/media/video/video-1.mp4`,
+                `https://suntec-belive-clients.belive.sg/test_360/playlist.m3u8`,
+                `https://suntec-belive-clients.belive.sg/test_360/football/playlist.m3u8`,
                 `${process.env.VUE_APP_BASE_URL}/static/media/hls-2/video2.m3u8`,
                 "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8",
-                "https://56124c4c47e0.us-west-2.playback.live-video.net/api/video/v1/us-west-2.238231345362.channel.V08fLwnN7GgN.m3u8",
-                "http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
+                // "https://56124c4c47e0.us-west-2.playback.live-video.net/api/video/v1/us-west-2.238231345362.channel.V08fLwnN7GgN.m3u8",
+                "https://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
                 "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                 "https://ak-texel01.akamaized.net/hls/live/2000341/test/master.m3u8?hdnea=st=1594806483~exp=1595411283~acl=/hls/live/*~hmac=0971be7041af0cc44f4696c3f5beff759243f6ee7444844711fcf5e125c4ed8d",
-                // "http://34.84.215.47/BeLive_cam0.m3u8",
+                `${process.env.VUE_APP_BASE_URL}/static/media/video/video-1.mp4`,
                 // "http://34.84.215.47/BeLive_cam1.m3u8",
                 // "http://34.84.215.47/BeLive_cam2.m3u8",
                 // "http://34.84.215.47/BeLive_cam3.m3u8 ",
@@ -76,13 +77,15 @@ export default {
                 },
                 {
                     sources: [
-                        `${process.env.VUE_APP_BASE_URL}/static/media/hls/hls.m3u8`,
+                        `https://suntec-belive-clients.belive.sg/test_360/football/playlist.m3u8`,
+                        // `${process.env.VUE_APP_BASE_URL}/static/media/hls/hls.m3u8`,
                     ],
                     is360Video: true
                 },
                 {
                     sources: [
-                        `${process.env.VUE_APP_BASE_URL}/static/media/hls-2/video2.m3u8`
+                        `https://suntec-belive-clients.belive.sg/test_360/playlist.m3u8`,
+                        // `${process.env.VUE_APP_BASE_URL}/static/media/hls-2/video2.m3u8`
                     ],
                     is360Video: true
                 }
@@ -98,27 +101,73 @@ export default {
             videoKey1: 2,
             videoKey2: 3,
             videoKey3: 4,
-            currentMaxKey: 4
+            currentMaxKey: 4,
         };
     },
     computed: {
+        iOSVersion() {
+            return this.getCurrentiOsVersion();
+        }
     },
     watch: {
+        urlSources(val) {
+            if (val.length && this.usePlayer === 'videojs-360') {
+                this.$nextTick(() => {
+                    this.registerEventGrantPermission();
+                });
+            }
+        },
+        usePlayer(val) {
+            if (val === 'videojs-360' && this.urlSources.length) {
+                this.$nextTick(() => {
+                    this.registerEventGrantPermission();
+                });
+            }
+        }
     },
     created() {
     },
     mounted() {
-
     },
     methods: {
+        getCurrentiOsVersion() {
+            var agent = window.navigator.userAgent,
+                start = agent.indexOf( 'OS ' );
+            if( ( agent.indexOf( 'iPhone' ) > -1 || agent.indexOf( 'iPad' ) > -1 ) && start > -1 ){
+                return window.Number( agent.substr( start + 3, 3 ).replace( '_', '.' ) );
+            }
+            return 0;
+        },
+        async registerEventGrantPermission() {
+            try {
+                let buttonEl = document.getElementById(`grant-motion-access-${this.reRenderComponent}`);
+                await buttonEl.addEventListener('click', this.eventGrantPermission);
+            } catch (ex) {
+                console.log('eval code err: ' + ex);
+            }
+        },
+        eventGrantPermission() {
+            DeviceMotionEvent.requestPermission().then(response => {
+                alert('We are get the permission!, response is ' + response);
+                if (response == 'granted') {
+                    window.addEventListener('devicemotion', (e) => {
+                        // do something with e
+                    })
+                }
+            }).catch((e) => {
+                console.log('eval code err: ' + e);
+            })
+        },
         startPlayVideo: function (url) {
             // this.showLoading = true;
             this.streamUrl = url;
             this.reRenderComponent++;
             if (this.usePlayer === "videojs" || this.usePlayer === "videojs-360" || this.usePlayer === "videojs-aws") {
-                this.urlSources = [
-                    url
-                ];
+                if (url) {
+                    this.urlSources = [
+                        url
+                    ];
+                }
             }
             else if (this.usePlayer === "wowza") {
                 this.wowzaPlayerOptions = Object.assign({}, {

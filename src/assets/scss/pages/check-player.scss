@@ -60,6 +60,13 @@
             .quality-level {
                 word-break: break-all;
             }
+
+            .more-actions {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                z-index: 2;
+            }
         }
 	}
 }
