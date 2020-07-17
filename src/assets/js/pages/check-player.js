@@ -111,11 +111,11 @@ export default {
     },
     computed: {
         iOSVersion() {
-            return this.getCurrentiOsVersion();
+            return parseFloat(this.getCurrentMobileOsVersion());
         },
         mobileOS() {
             return this.getMobileOperatingSystem();
-        }
+        },
     },
     watch: {
         urlSources(val) {
@@ -138,13 +138,12 @@ export default {
     mounted() {
     },
     methods: {
-        getCurrentiOsVersion() {
-            var agent = window.navigator.userAgent,
-                start = agent.indexOf( 'OS ' );
-            if( ( agent.indexOf( 'iPhone' ) > -1 || agent.indexOf( 'iPad' ) > -1 ) && start > -1 ){
-                return window.Number( agent.substr( start + 3, 3 ).replace( '_', '.' ) );
-            }
-            return 0;
+        switchLayout(val) {
+            this.reRenderComponent++;
+            this.isMultipleLayout = val;
+            this.$nextTick(() => {
+                this.registerEventGrantPermission();
+            });
         },
         async registerEventGrantPermission() {
             try {
@@ -155,6 +154,7 @@ export default {
             }
         },
         eventGrantPermission() {
+            alert(1);
             DeviceMotionEvent.requestPermission().then(response => {
                 alert('We are get the permission!, response is ' + response);
                 if (response == 'granted') {

@@ -49,6 +49,15 @@
                 }
             }
 
+            .additional-layout {
+                position: relative;
+                text-align: left;
+                padding: 20px 0;
+
+                .quality-level {
+                    word-break: break-all;
+                }
+            }
             .actions-layout {
                 position: absolute;
                 bottom: 0;
@@ -59,16 +68,33 @@
                 cursor: pointer;
                 z-index: 2;
             }
+        }
 
-            .quality-level {
-                word-break: break-all;
-            }
+        .show-guide-layout {
+            padding: 20px 0;
+            text-align: left;
+        }
 
-            .more-actions {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                z-index: 2;
+        .more-actions {
+            //position: absolute;
+            //top: 10px;
+            //right: 10px;
+            //z-index: 2;
+        }
+
+        .guide-layout {
+            margin: 10px 0;
+        }
+
+        #guide-collapse {
+            margin: 10px 0;
+            border: 1px solid black;
+
+            .img-guide {
+                text-align: center;
+                img {
+                    max-width: 200px;
+                }
             }
         }
 	}

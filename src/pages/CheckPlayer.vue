@@ -1,7 +1,7 @@
 <template>
 	<div class="container-fluid belive-player-page">
         <b-row class="text-center mt-3">
-            <b-button class="switch-layout" variant="success" @click="isMultipleLayout = !isMultipleLayout">Change Layout To
+            <b-button class="switch-layout" variant="success" @click="switchLayout(!isMultipleLayout)">Change Layout To
                 {{ (!isMultipleLayout) ? "Multiple Streams" : "Single Player" }}</b-button>
         </b-row>
 		<div class="home mt-3 mb-3" :class="(mobileOS === MOBILE_OS.UN_KNOWN) ? 'container' : ''" v-if="!isMultipleLayout">
@@ -115,15 +115,28 @@
                                 :isShowQualities="true"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
-                                <div class="more-actions" v-show="usePlayer === 'videojs-360'">
-                                    <b-button :id="`grant-motion-access-${reRenderComponent}`" variant="danger">Grant The Motion & Orientation Access</b-button>
-                                </div>
-                                <div class="qualities-layout text-left">
-                                    <div class="quality-levels text-break" v-if="qualityLevels">
-                                        <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
-                                            <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="text-break mt-1" @click="changeQuality(index)">
-                                                {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
-                                            </b-button>
+                                <div class="additional-layout">
+                                    <div class="more-actions" v-show="usePlayer === 'videojs-360' && iOSVersion >= 13">
+                                        <b-button :id="`grant-motion-access-${reRenderComponent}`" variant="danger">Grant The Motion & Orientation Access</b-button>
+                                    </div>
+                                    <div class="guide-layout" v-if="iOSVersion >= 12 && iOSVersion < 13">
+                                        <b-button v-b-toggle:guide-collapse variant="info">Guide to enable accelerometer on iOS</b-button>
+                                        <b-collapse id="guide-collapse">
+                                            <b-card title="Enabling accelerometer on iOS 12">
+                                                To enable accelerometer on your iOS device, please go to ‘Settings’ – ‘Safari’ and enable ‘Motion & Orientation Access’.
+                                                <div class="img-guide">
+                                                    <b-img src="https://support.thinglink.com/hc/article_attachments/360040289774/photo_2019-07-03_13-40-38.jpg" />
+                                                </div>
+                                            </b-card>
+                                        </b-collapse>
+                                    </div>
+                                    <div class="qualities-layout text-left">
+                                        <div class="quality-levels text-break" v-if="qualityLevels">
+                                            <div v-for="(qualityLevel, index) in qualityLevels.levels_" v-bind:key="index" class="quality-level">
+                                                <b-button :variant="qualityLevels.selectedIndex === index ? 'success' : 'secondary'" class="text-break mt-1" @click="changeQuality(index)">
+                                                    {{ `${qualityLevel.id}: ${qualityLevel.bitrate} kbps ${qualityLevel.width} ${qualityLevel.height}` }}
+                                                </b-button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -141,12 +154,6 @@
 								v-else-if="usePlayer === 'wowza'"
 								:options="wowzaPlayerOptions"
 						></wowza-player>
-						<template v-slot:overlay>
-							<div class="text-center">
-								<b-icon icon="three-dots" font-scale="3" animation="cylon"></b-icon>
-								<p id="cancel-label">Loading video, please wait...</p>
-							</div>
-						</template>
 				</b-col>
 			</b-row>
 		</div>
@@ -258,6 +265,24 @@
                                 </div>
                             </template>
                         </VideoJsPlayer>
+                    </div>
+                </div>
+                <div class="show-guide-layout">
+                    <div class="additional-layout">
+                        <div class="more-actions" v-show="iOSVersion >= 13">
+                            <b-button :id="`grant-motion-access-${reRenderComponent}`" variant="danger">Grant The Motion & Orientation Access</b-button>
+                        </div>
+                        <div class="guide-layout" v-if="iOSVersion >= 12 && iOSVersion < 13">
+                            <b-button v-b-toggle:guide-collapse variant="info">Guide to enable accelerometer on iOS</b-button>
+                            <b-collapse id="guide-collapse">
+                                <b-card title="Enabling accelerometer on iOS 12">
+                                    To enable accelerometer on your iOS device, please go to ‘Settings’ – ‘Safari’ and enable ‘Motion & Orientation Access’.
+                                    <div class="img-guide">
+                                        <b-img src="https://support.thinglink.com/hc/article_attachments/360040289774/photo_2019-07-03_13-40-38.jpg" />
+                                    </div>
+                                </b-card>
+                            </b-collapse>
+                        </div>
                     </div>
                 </div>
             </b-row>
