@@ -31,7 +31,7 @@
   }
 
     .logo-page {
-        width: 400px;
+        width: 200px;
     }
 }
 </style>
