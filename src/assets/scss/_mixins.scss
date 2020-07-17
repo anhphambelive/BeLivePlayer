@@ -1,0 +1,94 @@
+@mixin clearfix {
+   &::after {
+      content: "";
+      display: table;
+      clear: both;
+   }
+}
+
+@mixin absCenter {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+@mixin boxShadow($top, $left, $blur, $size, $color) {
+   -webkit-box-shadow: $top $left $blur $size $color;
+   -moz-box-shadow: $top $left $blur $size $color;
+   box-shadow: $top $left $blur $size $color;
+}
+
+// MEDIA QUERY MANAGER
+/*
+
+ $grid-breakpoints: (
+   // Extra small screen / phone
+   xs: 0,
+   // Small screen / phone
+   sm: 576px,
+   // Medium screen / tab-port
+   md: 768px,
+   // Large screen / tab-land
+   lg: 992px,
+   // Extra large screen / wide desktop
+   xl: 1200px
+ );
+
+ $breakpoint arguement choices:
+ - phone
+ - tab-port
+ - tab-land
+ - big-desktop
+
+ ORDER: Base + typography > general layout + grid > page layout > components
+
+ 1em = 16px
+ */
+@mixin respond($breakpoint) {
+   @if $breakpoint==phone-xs {
+      @media only screen and (max-width: 20.75em) and (orientation: portrait) {
+         @content;
+      }
+
+      //xs = 332px
+   }
+
+   @if $breakpoint==phone {
+      @media only screen and (max-width: 35em) and (orientation: portrait) {
+         @content;
+      }
+
+      //sm = 576px
+   }
+
+   @if $breakpoint==mobile-land {
+      @media only screen and (max-width: 62em) and (orientation: landscape) {
+         @content;
+      }
+   }
+
+   @if $breakpoint==tab-port {
+      @media only screen and (max-width: 48em) and (orientation: portrait) {
+         @content;
+      }
+
+      //md = 768px
+   }
+
+   @if $breakpoint==tab-land {
+      @media only screen and (max-width: 62em) {
+         @content;
+      }
+
+      //lg = 992px
+   }
+
+   @if $breakpoint==big-desktop {
+      @media only screen and (min-width: 75em) {
+         @content;
+      }
+
+      //xl = 1200
+   }
+}

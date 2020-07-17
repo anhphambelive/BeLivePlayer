@@ -2,10 +2,12 @@ import {VideoJsPlayer} from 'bi-live-libs'
 import PlyrPlayer from "@/components/PlyrPlayer";
 import WowzaPlayer from "@/components/WowzaPlayer";
 import {WOWZA_PLAYER_CONFIGS} from "@/configs/Settings";
+import { MOBILE_OS } from "@/configs/Settings";
+import HelperMixins from "@/mixins/HelperMixins";
 
 export default {
     name: "CheckPlayer",
-    mixins: [],
+    mixins: [ HelperMixins ],
     components: {
         VideoJsPlayer,
         PlyrPlayer,
@@ -103,11 +105,16 @@ export default {
             videoKey2: 3,
             videoKey3: 4,
             currentMaxKey: 4,
+
+            MOBILE_OS: MOBILE_OS
         };
     },
     computed: {
         iOSVersion() {
             return this.getCurrentiOsVersion();
+        },
+        mobileOS() {
+            return this.getMobileOperatingSystem();
         }
     },
     watch: {

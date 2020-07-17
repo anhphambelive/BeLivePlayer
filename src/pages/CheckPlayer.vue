@@ -4,7 +4,7 @@
             <b-button class="switch-layout" variant="success" @click="isMultipleLayout = !isMultipleLayout">Change Layout To
                 {{ (!isMultipleLayout) ? "Multiple Streams" : "Single Player" }}</b-button>
         </b-row>
-		<div class="container home mt-3 mb-3" v-if="!isMultipleLayout">
+		<div class="home mt-3 mb-3" :class="(mobileOS === MOBILE_OS.UN_KNOWN) ? 'container' : ''" v-if="!isMultipleLayout">
 			<b-row class="title-row">
 				<b-col cols="12">
 					<h1 class="text-center mt-3 mb-1">
@@ -151,7 +151,7 @@
 			</b-row>
 		</div>
 
-        <div class="container home mt-3 mb-3" v-else>
+        <div class="home mt-3 mb-3" :class="(mobileOS === MOBILE_OS.UN_KNOWN) ? 'container' : ''" v-else>
             <b-row class="title-row">
                 <b-col cols="12">
                     <h1 class="text-center mt-3 mb-1">
