@@ -328,7 +328,7 @@ export default {
                         this.player.mediainfo.projection = '360';
                     }
 
-                    this.player.vr({projection: 'AUTO', debug: true, forceCardboard: false});
+                    this.player.vr({projection: '360', debug: true});
                 }
             } catch (e) {
                 console.log("Error", e);
