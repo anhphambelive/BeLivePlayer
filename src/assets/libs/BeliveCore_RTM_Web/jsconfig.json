@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-	"module": "esnext"
-  },
-  "javascript.validate.enable": false
-}

@@ -1,5 +1,13 @@
-import { VIDEO_PLAYER_CONFIGS, MOBILE_OS } from "../../../configs/Settings";
-import HelperMixins from "./../../../mixins/HelperMixins";
+import videojs from "video.js";
+// The actual plugin function is exported by this module, but it is also
+// attached to the `Player.prototype`; so, there is no need to assign it
+// to a variable.
+require('videojs-contrib-quality-levels');
+require('videojs-hls-quality-selector');
+require('@/../public/static/js/videojs-vr.min');
+
+import { VIDEO_PLAYER_CONFIGS, MOBILE_OS } from "@/configs/Settings";
+import HelperMixins from "@/mixins/HelperMixins";
 
 export default {
     name: "VideoJsPlayer",

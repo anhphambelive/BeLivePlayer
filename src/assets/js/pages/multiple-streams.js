@@ -1,5 +1,5 @@
-import VideoJsPlayer from "../../../components/VideoJsPlayer";
-const BASE_URL = 'https://beliveplayer.belive.sg';
+import {VideoJsPlayer} from 'bi-live-libs'
+const BASE_URL = 'http://beliveplayer.belive.sg';
 
 export default {
     name: "MultipleStreams",

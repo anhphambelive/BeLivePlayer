@@ -1,4 +1,4 @@
-import { MOBILE_OS } from "../configs/Settings";
+import { MOBILE_OS } from "@/configs/Settings";
 export default {
    name: "Helper Mixins",
    data() {
