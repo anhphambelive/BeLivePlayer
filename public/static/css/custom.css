@@ -1,0 +1,8 @@
+.video-js .vjs-menu-button-popup .vjs-menu {
+    left: auto;
+    right: 0;
+}
+
+.video-js canvas {
+    left: 0;
+}

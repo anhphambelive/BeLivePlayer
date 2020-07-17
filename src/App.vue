@@ -1,48 +1,37 @@
 <template>
-    <div id="app">
-        <Navbar></Navbar>
-        <div class="main main-page belive-main-page" role="main">
-            <router-view
-                class="view-route-partial"
-                id="view-route-partial"
-            />
-        </div>
+  <div id="app">
+    <div id="nav">
+      <a href="https://tech.belive.sg/" target="_blank" a>
+          <img alt="Vue logo" src="./assets/logo.png" class="logo-page">
+      </a>
     </div>
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import Navbar from "./sections/navbar"
-import Footer from "./sections/footer"
-
-export default {
-    name: "App",
-    components: {
-        Navbar,
-        Footer,
-    },
-    mixins: [],
-    data() {
-        return {
-            keyRouter: 0,
-        }
-    },
-    watch: {},
-    computed: {
-
-    },
-    created() {
-    },
-    mounted() {
-
-    },
-    methods: {
-
-    },
-    beforeDestroy() {
-    },
-}
-</script>
-
 <style lang="scss">
-@import "assets/scss/style";
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+
+    .logo-page {
+        width: 400px;
+    }
+}
 </style>
