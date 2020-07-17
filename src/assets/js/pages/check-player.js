@@ -154,7 +154,6 @@ export default {
             }
         },
         eventGrantPermission() {
-            alert(1);
             DeviceMotionEvent.requestPermission().then(response => {
                 alert('We are get the permission!, response is ' + response);
                 if (response == 'granted') {
