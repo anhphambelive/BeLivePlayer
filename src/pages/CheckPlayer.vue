@@ -111,6 +111,8 @@
                                 v-else-if="usePlayer === 'videojs-360' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use360-config="true"
+                                ref="video360"
+                                :start-from-time="startTimeFrom"
                                 :force-auto-play-with-sound="true"
                                 :register-button="(mobileOS === MOBILE_OS.iOS) ? registerButton : noRegisterButton"
                                 :isShowQualities="true"
@@ -175,6 +177,7 @@
                         :url-sources="urlMultiple[0].sources"
                         :is-use360-config="urlMultiple[0].is360Video"
                         :force-auto-play-with-sound="true"
+                        :start-from-time="startTimeFrom"
                         :options="mainVideoConfigs"
                         :register-button="(mobileOS === MOBILE_OS.iOS && urlMultiple[0].is360Video) ? registerButton : noRegisterButton"
                     >

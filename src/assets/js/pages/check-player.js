@@ -22,6 +22,7 @@ export default {
             streamUrl: "",
             urlSources: [],
             usePlayer: "videojs",
+            startTimeFrom: 0,
             playerOptions: [
                 // { value: "videojs", text: "VideoJS Player" },
                 // { value: "hls", text: "HLS Player" },
@@ -146,6 +147,7 @@ export default {
     },
     methods: {
         switchLayout(val) {
+            this.startTimeFrom = 0;
             this.reRenderComponent++;
             this.isMultipleLayout = val;
             this.$nextTick(() => {
@@ -204,6 +206,7 @@ export default {
         },
 
         toggleSwitchMainStream(index) {
+            this.startTimeFrom = 0;
             let currentMain = this.urlMultiple[0];
             let currentVideo = this.urlMultiple[index];
             this.urlMultiple[index] = currentMain;
@@ -233,6 +236,20 @@ export default {
 
                 handleClick: function() {
                     _this.isFullScreenLayout = !_this.isFullScreenLayout;
+                    _this.$nextTick(() => {
+                        _this.reRenderComponent++;
+                        _this.startTimeFrom = player.currentTime();
+
+                        _this.currentMaxKey++;
+                        _this.videoKey0 = _this.currentMaxKey;
+                        // let videoJsEl = _this.$refs.video360.$el;
+                        // let width = videoJsEl.offsetWidth;
+                        // let height = videoJsEl.offsetHeight;
+                        // let canvas = videoJsEl.querySelector("canvas");
+                        // canvas.width = width;
+                        // canvas.height = height;
+                        // console.log(canvas);
+                    });
                 },
             });
 
