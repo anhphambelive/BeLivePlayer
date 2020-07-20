@@ -16,6 +16,7 @@ export default {
     data() {
         return {
             isMultipleLayout: false,
+            isFullScreenLayout: false,
             showLoading: false,
             reRenderComponent: 0,
             streamUrl: "",
@@ -93,7 +94,11 @@ export default {
                     is360Video: true
                 }
             ],
-
+            mainVideoConfigs: {
+                captionsButton: false,
+                chaptersButton: false,
+                subtitlesButton: false,
+            },
             subVideoConfigs: {
                 autoplay: true,
                 loop: true,
@@ -134,8 +139,10 @@ export default {
         }
     },
     created() {
+        window.addEventListener("resize", this.onResize);
     },
     mounted() {
+        this.onResize();
     },
     methods: {
         switchLayout(val) {
@@ -203,6 +210,42 @@ export default {
             this.urlMultiple[0] = currentVideo;
             this.currentMaxKey++;
             this.videoKey0 = this.currentMaxKey;
+        },
+
+        registerButton(videojs, player) {
+            let _this = this;
+            /* ADD PREVIOUS */
+            let Button = videojs.getComponent('Button');
+
+            // Extend default
+            let FullScreenBtn = videojs.extend(Button, {
+                constructor: function() {
+                    Button.apply(this, arguments);
+                    this.addClass('vjs-icon-square');
+                    this.controlText("Fullscreen");
+                },
+
+                createEl: function() {
+                    return Button.prototype.createEl('button', {
+                        className: 'full-layout-custom',
+                    });
+                },
+
+                handleClick: function() {
+                    _this.isFullScreenLayout = !_this.isFullScreenLayout;
+                },
+            });
+
+            // Register the new component
+            videojs.registerComponent('FullScreenBtn', FullScreenBtn);
+            player.getChild('controlBar').addChild('FullScreenBtn', {});
+        },
+
+        noRegisterButton() {
+            return ;
         }
     },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
+    }
 };
