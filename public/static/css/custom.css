@@ -6,3 +6,12 @@
 .video-js canvas {
     left: 0;
 }
+
+.video-js button.full-layout-custom {
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.fullscreen-layout .video-js.vjs-16-9 {
+    padding-top: 0;
+}
