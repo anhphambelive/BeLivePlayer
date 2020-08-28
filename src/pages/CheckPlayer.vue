@@ -73,6 +73,7 @@
                                 :is-use-aws-config="false"
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
+                                :options="videoJsOptions"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
                                 <div class="qualities-layout text-left">
@@ -93,6 +94,7 @@
                                 :is-use-aws-config="true"
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
+                                :options="videoJsOptions"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
                                 <div class="qualities-layout text-left">
@@ -116,6 +118,7 @@
                                 :force-auto-play-with-sound="true"
                                 :register-button="(mobileOS === MOBILE_OS.iOS) ? registerButton : noRegisterButton"
                                 :isShowQualities="true"
+                :options="videoJsOptions"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }" v-if="!isFullScreenLayout">
                                 <div class="additional-layout">
