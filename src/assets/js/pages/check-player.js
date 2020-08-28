@@ -99,12 +99,16 @@ export default {
                 captionsButton: false,
                 chaptersButton: false,
                 subtitlesButton: false,
+                controlBar: {
+                    pictureInPictureToggle: true,
+                    playToggle: { replay: false }
+                } // Hides the replay button for VOD
             },
             subVideoConfigs: {
                 autoplay: true,
                 loop: true,
                 controls: false,
-                muted: true
+                muted: true,
             },
             videoKey0: 1,
             videoKey1: 2,
@@ -112,7 +116,14 @@ export default {
             videoKey3: 4,
             currentMaxKey: 4,
 
-            MOBILE_OS: MOBILE_OS
+            MOBILE_OS: MOBILE_OS,
+
+            videoJsOptions: {
+                controlBar: {
+                    pictureInPictureToggle: true,
+                    playToggle: { replay: false }
+                } // Hides the replay button for VOD
+            }
         };
     },
     computed: {
