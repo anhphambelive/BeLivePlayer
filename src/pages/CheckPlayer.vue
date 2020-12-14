@@ -160,6 +160,7 @@
 								v-else-if="usePlayer === 'wowza'"
 								:options="wowzaPlayerOptions"
 						></wowza-player>
+                        <video v-else-if="usePlayer === 'ivs-player'" id="video-ivs-player" playsinline></video>
 				</b-col>
 			</b-row>
 		</div>

@@ -29,19 +29,20 @@ export default {
                 // { value: "shaka", text: "Shaka Player" },
                 // { value: "wowza", text: "Wowza Player" },
 
-                { value: "videojs", text: "Player 1" },
-                { value: "hls", text: "Player 2" },
-                { value: "videojs-aws", text: "Player 3" },
-                { value: "videojs-360", text: "Player 4" },
+                { value: "videojs", text: "VideoJs Player" },
+                { value: "hls", text: "HLS Player" },
+                { value: "ivs-player", text: "IVS Player" },
+                { value: "videojs-aws", text: "Videojs AWS" },
+                { value: "videojs-360", text: "Videojs 360" },
                 // // { value: "shaka", text: "Player 3" },
                 // // { value: "wowza", text: "Player 4" },
             ],
             testingUrls: [
+                `https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8`,
                 `${process.env.VUE_APP_BASE_URL}/static/media/hls/hls.m3u8`,
                 `https://suntec-belive-clients.belive.sg/test_360/football/playlist.m3u8`,
                 `${process.env.VUE_APP_BASE_URL}/static/media/hls-2/video2.m3u8`,
                 `https://suntec-belive-clients.belive.sg/test_360/playlist.m3u8`,
-                "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8",
                 // "https://56124c4c47e0.us-west-2.playback.live-video.net/api/video/v1/us-west-2.238231345362.channel.V08fLwnN7GgN.m3u8",
                 "https://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8",
                 "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
@@ -210,6 +211,16 @@ export default {
                     mute: false,
                     volume: 75
                 });
+            }
+            else if (this.usePlayer === "ivs-player" && url) {
+                this.$nextTick(() => {
+                    if (IVSPlayer.isPlayerSupported) {
+                        const player = IVSPlayer.create();
+                        player.attachHTMLVideoElement(document.getElementById('video-ivs-player'));
+                        player.load(url);
+                        player.play();
+                    }
+                })
             }
             else {
                 this.urlSources = [];
