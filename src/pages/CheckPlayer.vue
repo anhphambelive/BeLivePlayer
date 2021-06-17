@@ -15,11 +15,11 @@
 
 			<b-row class="input-url-row" :class="isFullScreenLayout ? 'd-none' : ''">
 				<b-col cols="12">
+					<!-- v-on:keyup.enter="startPlayVideo(streamUrl)" -->
 					<!-- Using components -->
 					<b-input-group class="mt-3">
 						<b-form-input
 								v-model="streamUrl"
-								v-on:keyup.enter="startPlayVideo(streamUrl)"
 								ref="searchInput"
 								:disabled="showLoading"
 						></b-form-input>
@@ -31,19 +31,37 @@
 								@input="startPlayVideo(streamUrl)"
 							></b-form-select>
 						</template>
-						<b-input-group-append>
-							<b-button
-									@click="startPlayVideo(streamUrl)"
-									variant="outline-success"
-									ref="button"
-									:disabled="showLoading"
-							>
-								<b-icon-play-fill></b-icon-play-fill>
-								Play
-							</b-button>
-						</b-input-group-append>
 					</b-input-group>
 				</b-col>
+                <b-col cols="4">
+                    <b-input-group class="mt-3" prepend="Key(name) token">
+                        <b-form-input v-model="token.name"></b-form-input>
+                    </b-input-group>
+                </b-col>
+                <b-col cols="4">
+                    <b-input-group class="mt-3" prepend="Value token">
+                        <b-form-input v-model="token.value"></b-form-input>
+                    </b-input-group>
+                </b-col>
+                <b-col cols="4">
+                    <b-input-group class="append-token mt-3" prepend="Append per request:">
+                        <SwitchCheckbox v-model="isAddQueryPerRequest"></SwitchCheckbox>
+                    </b-input-group>
+                </b-col>
+                <b-col cols="12">
+                    <div class="row-action mt-3 mb-3">
+                        <b-button
+                            @click="startPlayVideo(streamUrl)"
+                            variant="outline-success"
+                            ref="button"
+                            :disabled="showLoading"
+                            class="btn-large"
+                        >
+                            <b-icon-play-fill></b-icon-play-fill>
+                            Play
+                        </b-button>
+                    </div>
+                </b-col>
 			</b-row>
 
 			<b-row class="url-testing-row" :class="isFullScreenLayout ? 'd-none' : ''">
@@ -65,7 +83,7 @@
 			</b-row>
 
 			<b-row class="player-wrapper-layout" :class="isFullScreenLayout ? 'fullscreen-layout' : ''">
-				<b-col cols="12" :key="reRenderComponent" class="content-wrapper" :class="isFullScreenLayout ? 'p-0' : ''">
+				<b-col cols="12" :key="reRenderComponent" class="content-wrapper" :class="isFullScreenLayout ? 'p-0' : ''" v-if="isRenderComponents">
 						<VideoJsPlayer
 								video-id="my-watch-video"
                                 v-if="usePlayer === 'videojs' && urlSources.length"
@@ -74,6 +92,8 @@
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
                                 :options="videoJsOptions"
+                                :queryParams="queryParams" 
+                                :isAddQueryPerRequest="isAddQueryPerRequest"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
                                 <div class="qualities-layout text-left">
@@ -95,6 +115,8 @@
                                 :force-auto-play-with-sound="true"
                                 :isShowQualities="true"
                                 :options="videoJsOptions"
+                                :queryParams="queryParams" 
+                                :isAddQueryPerRequest="isAddQueryPerRequest"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
                                 <div class="qualities-layout text-left">
@@ -118,7 +140,9 @@
                                 :force-auto-play-with-sound="true"
                                 :register-button="(mobileOS === MOBILE_OS.iOS) ? registerButton : noRegisterButton"
                                 :isShowQualities="true"
-                :options="videoJsOptions"
+                                :options="videoJsOptions"
+                                :queryParams="queryParams" 
+                                :isAddQueryPerRequest="isAddQueryPerRequest"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }" v-if="!isFullScreenLayout">
                                 <div class="additional-layout">
