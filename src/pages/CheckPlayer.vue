@@ -83,7 +83,7 @@
 			</b-row>
 
 			<b-row class="player-wrapper-layout" :class="isFullScreenLayout ? 'fullscreen-layout' : ''">
-				<b-col cols="12" :key="reRenderComponent" class="content-wrapper" :class="isFullScreenLayout ? 'p-0' : ''" v-if="isRenderComponents">
+				<b-col cols="12" :key="reRenderComponent" class="content-wrapper" :class="isFullScreenLayout ? 'p-0' : ''">
 						<VideoJsPlayer
 								video-id="my-watch-video"
                                 v-if="usePlayer === 'videojs' && urlSources.length"

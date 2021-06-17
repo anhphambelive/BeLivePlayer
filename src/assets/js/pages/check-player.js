@@ -17,7 +17,6 @@ export default {
     },
     data() {
         return {
-            isRenderComponents: true,
             isMultipleLayout: false,
             isFullScreenLayout: false,
             showLoading: false,
@@ -205,7 +204,6 @@ export default {
             // this.showLoading = true;
             this.streamUrl = url;
             this.reRenderComponent++;
-            this.isRenderComponents = false;
             if (this.usePlayer === "videojs" || this.usePlayer === "videojs-360" || this.usePlayer === "videojs-aws") {
                 if (url) {
                     this.urlSources = [
@@ -241,9 +239,6 @@ export default {
             else {
                 this.urlSources = [];
             }
-            setTimeout(() => {
-                this.isRenderComponents = true;
-            }, 500)
         },
 
         toggleSwitchMainStream(index) {
