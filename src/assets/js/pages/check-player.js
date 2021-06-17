@@ -1,6 +1,7 @@
 import {VideoJsPlayer} from 'bi-live-libs'
 import PlyrPlayer from "@/components/PlyrPlayer";
 import WowzaPlayer from "@/components/WowzaPlayer";
+import SwitchCheckbox from "@/components/SwitchCheckbox";
 import {WOWZA_PLAYER_CONFIGS} from "@/configs/Settings";
 import { MOBILE_OS } from "@/configs/Settings";
 import HelperMixins from "@/mixins/HelperMixins";
@@ -11,10 +12,12 @@ export default {
     components: {
         VideoJsPlayer,
         PlyrPlayer,
-        WowzaPlayer
+        WowzaPlayer,
+        SwitchCheckbox
     },
     data() {
         return {
+            isRenderComponents: true,
             isMultipleLayout: false,
             isFullScreenLayout: false,
             showLoading: false,
@@ -23,6 +26,11 @@ export default {
             urlSources: [],
             usePlayer: "videojs",
             startTimeFrom: 0,
+            isAddQueryPerRequest: false,
+            token: {
+                name: "",
+                value: ""
+            },
             playerOptions: [
                 // { value: "videojs", text: "VideoJS Player" },
                 // { value: "hls", text: "HLS Player" },
@@ -134,6 +142,13 @@ export default {
         mobileOS() {
             return this.getMobileOperatingSystem();
         },
+        queryParams() {
+            if (!this.token) 
+                return null;
+            return {...{
+                [this.token.name]: this.token.value,
+            }};
+        }
     },
     watch: {
         urlSources(val) {
@@ -190,6 +205,7 @@ export default {
             // this.showLoading = true;
             this.streamUrl = url;
             this.reRenderComponent++;
+            this.isRenderComponents = false;
             if (this.usePlayer === "videojs" || this.usePlayer === "videojs-360" || this.usePlayer === "videojs-aws") {
                 if (url) {
                     this.urlSources = [
@@ -225,6 +241,9 @@ export default {
             else {
                 this.urlSources = [];
             }
+            setTimeout(() => {
+                this.isRenderComponents = true;
+            }, 500)
         },
 
         toggleSwitchMainStream(index) {
