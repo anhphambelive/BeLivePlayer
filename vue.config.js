@@ -1,38 +1,46 @@
-const webpack = require("webpack");
+const webpack = require('webpack')
+
 module.exports = {
-   productionSourceMap: false,
+    devServer: {
+        client: {
+            overlay: false // disables the full-screen error overlay
+        }
+    },
+    productionSourceMap: false,
+
     css: {
         extract: false,
         loaderOptions: {
-            // by default the `sass` option will apply to both syntaxes
-            // because `scss` syntax is also processed by sass-loader underlyingly
-            // but when configuring the `data` option
-            // `scss` syntax requires an semicolon at the end of a statement, while `sass` syntax requires none
-            // in that case, we can target the `scss` syntax separately using the `scss` option
             scss: {
-                prependData: `@import "~@/assets/scss/style.scss";`
+                additionalData: `@import "~@/assets/scss/style.scss";`
             }
         }
     },
-   chainWebpack: (config) => {
-      config.module
-          .rule('images')
-          .use('url-loader')
-          .loader('url-loader');
-          // .tap(options => Object.assign(options, { limit: 10240 }))
 
-      const svgRule = config.module.rule('svg');
-      svgRule.uses.clear();
-      svgRule
-          .use('vue-svg-loader')
-          .loader('vue-svg-loader');
-   },
-   configureWebpack: {
-      plugins: [
-         new webpack.IgnorePlugin({
-            resourceRegExp: /^\.\/locale$/,
-            contextRegExp: /moment$/
-         })
-      ],
-   },
-};
+    chainWebpack: (config) => {
+        // Replace deprecated `url-loader` with native Webpack 5 asset handling
+        config.module
+            .rule('images')
+            .test(/\.(png|jpe?g|gif|webp)$/i)
+            .type('asset')
+            .parser({
+                dataUrlCondition: {
+                    maxSize: 10 * 1024 // Inline images smaller than 10kb
+                }
+            })
+
+        // Update SVG rule to use vue-svg-loader
+        const svgRule = config.module.rule('svg')
+        svgRule.uses.clear()
+        svgRule.use('vue-svg-loader').loader('vue-svg-loader')
+    },
+
+    configureWebpack: {
+        plugins: [
+            new webpack.IgnorePlugin({
+                resourceRegExp: /^\.\/locale$/,
+                contextRegExp: /moment$/
+            })
+        ]
+    }
+}

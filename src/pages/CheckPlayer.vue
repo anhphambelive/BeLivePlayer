@@ -33,15 +33,14 @@
 						</template>
 					</b-input-group>
 				</b-col>
-                <b-col cols="4">
-                    <b-input-group class="mt-3" prepend="Key(name) token">
-                        <b-form-input v-model="token.name"></b-form-input>
-                    </b-input-group>
-                </b-col>
-                <b-col cols="4">
-                    <b-input-group class="mt-3" prepend="Value token">
-                        <b-form-input v-model="token.value"></b-form-input>
-                    </b-input-group>
+                <b-col cols="8">
+                    <b-form-group label="Tokens (as array of key-value objects)">
+                        <b-form-textarea
+                            v-model="tokenText"
+                            rows="6"
+                            placeholder='e.g. [{ "foo": "a" }, { "bar": "b" }]'
+                        ></b-form-textarea>
+                    </b-form-group>
                 </b-col>
                 <b-col cols="4">
                     <b-input-group class="append-token mt-3" prepend="Append per request:">
@@ -83,9 +82,10 @@
 			</b-row>
 
 			<b-row class="player-wrapper-layout" :class="isFullScreenLayout ? 'fullscreen-layout' : ''">
+                {{ queryParams }}
 				<b-col cols="12" :key="reRenderComponent" class="content-wrapper" :class="isFullScreenLayout ? 'p-0' : ''">
 						<VideoJsPlayer
-								video-id="my-watch-video"
+								video-id="my-watch-video-1"
                                 v-if="usePlayer === 'videojs' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use-aws-config="false"
@@ -94,6 +94,7 @@
                                 :options="videoJsOptions"
                                 :queryParams="queryParams" 
                                 :isAddQueryPerRequest="isAddQueryPerRequest"
+                                :isClickShowBigPlayLayout="false"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
                                 <div class="qualities-layout text-left">
@@ -108,7 +109,7 @@
                             </template>
                         </VideoJsPlayer>
                         <VideoJsPlayer
-								video-id="my-watch-video"
+								video-id="my-watch-video-2"
                                 v-else-if="usePlayer === 'videojs-aws' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use-aws-config="true"
@@ -117,6 +118,7 @@
                                 :options="videoJsOptions"
                                 :queryParams="queryParams" 
                                 :isAddQueryPerRequest="isAddQueryPerRequest"
+                                :isClickShowBigPlayLayout="false"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }">
                                 <div class="qualities-layout text-left">
@@ -131,7 +133,7 @@
                             </template>
                         </VideoJsPlayer>
                         <VideoJsPlayer
-								video-id="my-watch-video"
+								video-id="my-watch-video-3"
                                 v-else-if="usePlayer === 'videojs-360' && urlSources.length"
                                 :url-sources="urlSources"
                                 :is-use360-config="true"
@@ -143,6 +145,7 @@
                                 :options="videoJsOptions"
                                 :queryParams="queryParams" 
                                 :isAddQueryPerRequest="isAddQueryPerRequest"
+                                :isClickShowBigPlayLayout="false"
 						>
                             <template slot="additional-layout" slot-scope="{ qualityLevels, changeQuality }" v-if="!isFullScreenLayout">
                                 <div class="additional-layout">
@@ -173,14 +176,14 @@
                             </template>
                         </VideoJsPlayer>
 						<plyr-player
-								video-id="my-watch-video"
+								video-id="my-watch-video-4"
 								v-else-if="usePlayer === 'hls' || usePlayer === 'shaka'"
 								:use-player="usePlayer"
 								:url-source="streamUrl"
 								:is-play-stream="true"
 						></plyr-player>
 						<wowza-player
-								video-id="my-watch-video"
+								video-id="my-watch-video-5"
 								v-else-if="usePlayer === 'wowza'"
 								:options="wowzaPlayerOptions"
 						></wowza-player>
@@ -253,6 +256,7 @@
                             :is-use360-config="urlMultiple[2].is360Video"
                             :options="subVideoConfigs"
                             :is-always-play-lowest="true"
+                            :isClickShowBigPlayLayout="false"
                         >
                             <template slot="pre-layout">
                                 <div class="info-layout">
