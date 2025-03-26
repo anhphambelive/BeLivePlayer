@@ -82,7 +82,6 @@
 			</b-row>
 
 			<b-row class="player-wrapper-layout" :class="isFullScreenLayout ? 'fullscreen-layout' : ''">
-                {{ queryParams }}
 				<b-col cols="12" :key="reRenderComponent" class="content-wrapper" :class="isFullScreenLayout ? 'p-0' : ''">
 						<VideoJsPlayer
 								video-id="my-watch-video-1"
